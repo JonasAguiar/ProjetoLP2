@@ -1,8 +1,16 @@
 package pessoal;
 
+import SOOS.Controller;
+
 public class Medico extends Cargo{
 
-	public Medico(String nomeDoCargo) {
-		super(nomeDoCargo);
+	private Controller controller; 
+	
+	public Medico() {
+	}
+
+	@Override
+	public String toString() {
+		return "Medico";
 	}
 }

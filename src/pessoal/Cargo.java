@@ -1,11 +1,12 @@
 package pessoal;
 
-public class Cargo {
+public abstract class Cargo {
 	
-	protected String nomeDoCargo;
-	
-	public Cargo(String nomeDoCargo){
-		this.nomeDoCargo = nomeDoCargo;
+	public Cargo(){
 	}
+
+	@Override
+	public abstract String toString();
+		
 	
 }
