@@ -20,6 +20,7 @@ public class Controller {
 	private DepartamentoADM dptADM;
 	private Farmacia farmacia;
 	private Map<String, Funcionario> funcionariosCadastrados;
+	private Funcionario funcionarioLogado;
 	
 	public Controller(){
 		this.dptClinico = new DepartamentoClinico();
@@ -28,35 +29,53 @@ public class Controller {
 		this.funcionariosCadastrados = new HashMap<String, Funcionario>();
 	}
 
+	Funcionario diretor;
 	
 	public void iniciaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
 		liberaSistema(chave, nome, dataDeNascimento);
+		funcionarioLogado = diretor;
+		
 	}
 	
 	public void liberaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
+		final String SENHA = "c041ebf8";
 		verificaChamadaLiberaSistema();
-		if(chave.equals("c041ebf8") ){
-			
-			Funcionario diretor = dptADM.criaDiretor(chave, nome, dataDeNascimento);
+		if(chave.equals(SENHA) ){
+			diretor = dptADM.criaDiretor(nome, dataDeNascimento);
 			N_DO_METODO_INICIAL += 1;
 			funcionariosCadastrados.put(diretor.getMatricula(), diretor);
+			funcionarioLogado = diretor;
+		}else{
+			throw new Exception("Erro ao liberar o sistema. Chave invalida");
 		}
 	}
 	
-	public void verificaChamadaLiberaSistema() throws Exception{
+	public boolean verificaChamadaLiberaSistema() throws Exception{
 		if(N_DO_METODO_INICIAL == 1){
 			throw new Exception("Já possui um diretor nesse sistema.");	
+		}else{
+			return true;
 		}
 	}
 	
 	public boolean realizaLogin(String login, String senha){
 		if(funcionariosCadastrados.containsKey(login)){
 			if(funcionariosCadastrados.get(login).getSenha().equals(senha)){
+				funcionarioLogado = funcionariosCadastrados.get(login);
 				return true;
 			}
 		}return false;
 		
 	}
+	public boolean logout(){
+		funcionarioLogado = null;
+		return true;
+	}
+		
+	public void fechaSistema(){
+	
+	}
+	
 	//FORWARDING DOS METODOS DA CLASSE FARMACIA
 	public void criaMedicamento(String nome, String tipo, double preco, int quantidade, 
 			Set<CategoriaMedicamento> categorias){

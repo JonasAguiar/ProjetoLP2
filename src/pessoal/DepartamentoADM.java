@@ -14,15 +14,19 @@ public class DepartamentoADM {
 		this.funcionarios = new HashMap<Integer, Funcionario>();
 	}
 	
-	public Funcionario criaDiretor(String chave, String nome, LocalDate dataDeNascimento){
+	public Funcionario criaDiretor(String nome, LocalDate dataDeNascimento){
+		String senha = "c041ebf8";
 		Funcionario diretorGeral = new Diretor(nome, dataDeNascimento);
-		String matricula = "1" + dataDeNascimento.getYear() + "001";
+		String matricula = "1" + String.valueOf(dataDeNascimento.getYear()) 
+								+ String.valueOf(funcionarios.size());
 		diretorGeral.setMatricula(matricula);
-		diretorGeral.setSenha(chave);
+		diretorGeral.setSenha(senha);
 		return diretorGeral;
 	}
-		
-		
+	
+	public Funcionario criaMedico(String nome, LocalDate dataDeNascimento){
+		Funcionario medico = new Medico(nome, dataDeNascimento);
+		String matricula = "2" + dataDeNascimento.getDayOfYear() + ""
 	}
 	
 	
