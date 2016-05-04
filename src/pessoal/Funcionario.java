@@ -5,28 +5,21 @@ import java.time.LocalDate;
 public class Funcionario {
 	
 	private String nome;
-	private int matricula;
+	private String matricula;
 	private String senha;
-	private Cargo cargo;
+	private String cargo;
 	private LocalDate dataDeNascimento;
 	
-	public Funcionario(String nome, String cargo, LocalDate dataDeNascimento){
+	public Funcionario(String nome, LocalDate dataDeNascimento){
 		this.nome = nome;
 		this.dataDeNascimento = dataDeNascimento;
-		if(cargo.equals("Diretor")){
-			this.cargo = new Diretor();
-		}else if(cargo.equals("Medico")){
-			this.cargo = new Medico();
-		}else if(cargo.equals("Tecnico")){
-			this.cargo = new Tecnico();
 		}
-		
-	}
+
 	
-	public Funcionario(){
+/*	public Funcionario(){
 		this.cargo = new Diretor();
 		this.senha = "c041ebf8";
-	}
+	}*/
 
 	public String getNome() {
 		return nome;
@@ -36,11 +29,11 @@ public class Funcionario {
 		this.nome = nome;
 	}
 
-	public int getMatricula() {
+	public String getMatricula() {
 		return matricula;
 	}
 
-	public void setMatricula(int matricula) {
+	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
 
@@ -52,13 +45,6 @@ public class Funcionario {
 		this.senha = senha;
 	}
 
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
 
 	public LocalDate getDataDeNascimento() {
 		return dataDeNascimento;

@@ -1,17 +1,16 @@
 package pessoal;
 
-import SOOS.Controller;
+import java.time.LocalDate;
 
-public class Diretor extends Cargo{
+public class Diretor extends Funcionario{
 	
-	private Controller controller;
-	
-	public Diretor(){
+	public Diretor(String nome, LocalDate dataDeNascimento){
+		super(nome, dataDeNascimento);
 	}
 
 	@Override
 	public String toString() {
-		return "Tecnico Administrativo";
+		return "Diretor Geral";
 	}
 
 	
