@@ -1,4 +1,4 @@
-package SOOS;
+package Farmacia;
 
 import java.util.HashSet;
 import java.util.Set;

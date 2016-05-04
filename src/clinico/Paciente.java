@@ -1,4 +1,4 @@
-package SOOS;
+package clinico;
 
 import java.time.LocalDate;
 import java.util.UUID;

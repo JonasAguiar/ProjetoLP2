@@ -1,4 +1,4 @@
-package SOOS;
+package Farmacia;
 
 public class MedicamentoGenerico extends Medicamento{
 

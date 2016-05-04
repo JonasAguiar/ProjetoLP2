@@ -1,4 +1,4 @@
-package SOOS;
+package Farmacia;
 
 public enum CategoriaMedicamento {
 	
