@@ -2,7 +2,7 @@ package pessoal;
 
 public class Medico extends Cargo{
 
-	public Medico() {
+	public Medico(String nomeDoCargo) {
 		super(nomeDoCargo);
 	}
 }

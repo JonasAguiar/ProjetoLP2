@@ -8,5 +8,6 @@ public class Facade {
 	    args = new String[] {"SOOS.Facade", "resources/usecase_1.txt", "resources/usecase_2.txt"
 	    		, "resources/usecase_3.txt", "resources/usecase_4.txt"}; //separe cada script de teste por virgula.
 	    EasyAccept.main(args);
+	    
 	}
 }
