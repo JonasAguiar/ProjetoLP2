@@ -1,14 +1,16 @@
 package pessoal;
 
+import java.time.LocalDate;
+
 public class Funcionario {
 	
 	private String nome;
 	private int matricula;
 	private String senha;
 	private Cargo cargo;
-	private String dataDeNascimento;
+	private LocalDate dataDeNascimento;
 	
-	public Funcionario(String nome, String cargo, String dataDeNascimento){
+	public Funcionario(String nome, String cargo, LocalDate dataDeNascimento){
 		this.nome = nome;
 		this.dataDeNascimento = dataDeNascimento;
 		if(cargo.equals("Diretor")){
@@ -58,11 +60,11 @@ public class Funcionario {
 		this.cargo = cargo;
 	}
 
-	public String getDataDeNascimento() {
+	public LocalDate getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(String dataDeNascimento) {
+	public void setDataDeNascimento(LocalDate dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 	

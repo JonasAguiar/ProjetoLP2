@@ -1,5 +1,7 @@
 package SOOS;
 
+import java.time.LocalDate;
+
 import Farmacia.Farmacia;
 import clinico.DepartamentoClinico;
 import pessoal.DepartamentoADM;
@@ -17,8 +19,14 @@ public class Controller {
 		this.farmacia = new Farmacia();
 	}
 	
-
-	public void liberaSistema(String chave) throws Exception{
+	
+	
+	
+	public void iniciaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
+		liberaSistema(chave, nome, dataDeNascimento);
+	}
+	
+	public void liberaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
 		verificachamadaLiberaSistema();
 		if(chave.equals("c041ebf8") ){
 			dptADM.criaUsuarioInicial();
