@@ -1,5 +1,6 @@
 package clinico;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,13 +15,14 @@ public class DepartamentoClinico {
 	}
 
 	public String getInfoPaciente(UUID id, String atributo) {
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		for (Paciente paciente : pacientes) {
 			if (id.equals(paciente.getId())) {
 				switch (atributo) {
 				case "Nome":
 					return paciente.getNome();
 				case "Data":
-					return paciente.getDataNascimento();
+					return paciente.getDataNascimento().format(formatador);
 				case "Sexo":
 					return paciente.getSexoBiologico();
 				case "Genero":

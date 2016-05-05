@@ -31,9 +31,9 @@ public class Controller {
 
 	Funcionario diretor;
 	
-	public void iniciaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
+	public Object iniciaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
 		liberaSistema(chave, nome, dataDeNascimento);
-		funcionarioLogado = diretor;
+		return funcionarioLogado = diretor;
 		
 	}
 	
@@ -67,12 +67,13 @@ public class Controller {
 		}return false;
 		
 	}
-	public boolean logout(){
+	public String logout() {
 		funcionarioLogado = null;
-		return true;
+		return "logout";
 	}
 		
-	public void fechaSistema(){
+	public String fechaSistema(){
+		return "fechaSistema";
 	
 	}
 	
