@@ -11,6 +11,7 @@ import Farmacia.Farmacia;
 import Farmacia.Medicamento;
 import clinico.DepartamentoClinico;
 import pessoal.DepartamentoADM;
+import pessoal.Diretor;
 import pessoal.Funcionario;
 
 public class Controller {
@@ -20,7 +21,8 @@ public class Controller {
 	private DepartamentoADM dptADM;
 	private Farmacia farmacia;
 	private Map<String, Funcionario> funcionariosCadastrados;
-	private Funcionario funcionarioLogado;
+	private Funcionario usuarioLogado;
+	final String SENHA = "c041ebf8";
 	
 	public Controller(){
 		this.dptClinico = new DepartamentoClinico();
@@ -31,44 +33,54 @@ public class Controller {
 
 	Funcionario diretor;
 	
-	public Object iniciaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
-		liberaSistema(chave, nome, dataDeNascimento);
-		return funcionarioLogado = diretor;
+	public boolean verificaChave(String chave){
+		
+		if(chave.equals(SENHA)) {
+			return true;
+			} return false;
+		}
+	
+	public void iniciaSistema(){
 		
 	}
-	
+	 
 	public void liberaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
-		final String SENHA = "c041ebf8";
-		verificaChamadaLiberaSistema();
-		if(chave.equals(SENHA) ){
-			diretor = dptADM.criaDiretor(nome, dataDeNascimento);
-			N_DO_METODO_INICIAL += 1;
-			funcionariosCadastrados.put(diretor.getMatricula(), diretor);
-			funcionarioLogado = diretor;
-		}else{
-			throw new Exception("Erro ao liberar o sistema. Chave invalida");
+		if(verificaChamadaLiberaSistema()){
+			if(verificaChave(chave)){
+				if(usuarioLogado != null && !(usuarioLogado.getCargo() instanceof Diretor)){
+					usuarioLogado = dptADM.cadastraFuncionario(nome, "diretor", dataDeNascimento);
+					
+				}else{
+					
+					
+				}
+			}else{
+				throw new Exception("Erro ao liberar o sistema. Chave invalida");
+				}
 		}
 	}
 	
 	public boolean verificaChamadaLiberaSistema() throws Exception{
 		if(N_DO_METODO_INICIAL == 1){
-			throw new Exception("Já possui um diretor nesse sistema.");	
+			throw new Exception("Ja possui um diretor nesse sistema.");	
 		}else{
 			return true;
 		}
 	}
 	
-	public boolean realizaLogin(String login, String senha){
-		if(funcionariosCadastrados.containsKey(login)){
-			if(funcionariosCadastrados.get(login).getSenha().equals(senha)){
-				funcionarioLogado = funcionariosCadastrados.get(login);
+	public boolean login(String matricula, String senha) throws Exception{
+		if(funcionariosCadastrados.containsKey(matricula)){
+			if(funcionariosCadastrados.get(matricula).getSenha().equals(senha)){
+				usuarioLogado = funcionariosCadastrados.get(matricula);
 				return true;
+			}else{
+				throw new Exception("Nao foi possivel realizar login");
 			}
 		}return false;
 		
 	}
 	public String logout() {
-		funcionarioLogado = null;
+		usuarioLogado = null;
 		return "logout";
 	}
 		

@@ -7,11 +7,53 @@ import java.util.Map;
 
 public class DepartamentoADM {
 	
-
+	private FactoryFuncionarios factoryFuncionario;
 	private Map<Integer, Funcionario> funcionarios;
 
 	public DepartamentoADM(){
 		this.funcionarios = new HashMap<Integer, Funcionario>();
+		this.factoryFuncionario = new FactoryFuncionarios();
+	}
+
+	public Funcionario cadastraFuncionario(String nome, String cargo, LocalDate dataDeNascimento){
+		Funcionario funcionario = factoryFuncionario.criaFuncionario(cargo, nome, dataDeNascimento);
+		atribuiLogin(funcionario);
+			return funcionario;
+	}
+	
+	
+	
+	private void atribuiLogin(Funcionario funcionario){
+		if(funcionario.getCargo() instanceof Diretor){
+			atribuiLoginDiretor(funcionario);
+		}else if(funcionario.getCargo() instanceof Medico){
+			atribuiLoginMedico(funcionario);
+		}else if(funcionario.getCargo() instanceof Tecnico){
+			atribuiLoginTecnico(funcionario);
+		}
+		
+	}
+	
+	private void atribuiLoginDiretor(Funcionario funcionario){
+		String senha = "c041ebf8";
+		String matricula = "1" + String.valueOf(LocalDate.now().getYear()) 
+								+ complementoMatricula();
+		funcionario.setMatricula(matricula);
+		funcionario.setSenha(senha);
+	}
+	
+	private void atribuiLoginMedico (Funcionario funcionario){
+		String matricula = "2" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
+		funcionario.setMatricula(matricula);
+		String senha = String.valueOf(funcionario.getDataDeNascimento().getYear()) + complementoSenha(matricula);
+		funcionario.setSenha(senha);
+	}
+	
+	private void atribuiLoginTecnico(Funcionario funcionario){
+		String matricula = "3" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
+		funcionario.setMatricula(matricula);
+		String senha = String.valueOf(funcionario.getDataDeNascimento().getYear()) + complementoSenha(matricula);
+		funcionario.setSenha(senha);
 	}
 	
 	public String complementoMatricula(){
@@ -26,59 +68,9 @@ public class DepartamentoADM {
 		}
 	}
 	
-	
-
-	
 	public String complementoSenha(String matricula){
 		return  String.valueOf(matricula.charAt(0) +  matricula.charAt(1) +  matricula.charAt(2) +  matricula.charAt(3));
 	}	
 
-	
-		public Funcionario cadastraFuncionario(String nome, String cargo, LocalDate dataDeNascimento){
-			Funcionario funcionario = diretorGeral.cadastraFuncionario(nome, cargo, dataDeNascimento);
-			if(funcionario.getCargo().equalsIgnoreCase("medico")){
-				String matricula = "2" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
-				funcionario.setMatricula(matricula);
-				String senha = String.valueOf(dataDeNascimento.getYear()) + complementoSenha(matricula);
-				funcionario.setSenha(senha);
-			}else if(funcionario.getCargo().equalsIgnoreCase("tecnico administrativo")){
-				String matricula = "3" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
-				funcionario.setMatricula(matricula);
-				String senha = String.valueOf(dataDeNascimento.getYear()) + complementoSenha(matricula);
-				funcionario.setSenha(senha);
-			}
-			return funcionario;
-	}
-	
-	public Funcionario criaDiretor(String nome, LocalDate dataDeNascimento){
-		String senha = "c041ebf8";
-		Funcionario diretorGeral = new Diretor(nome, dataDeNascimento);
-		String matricula = "1" + String.valueOf(LocalDate.now().getYear()) 
-								+ complementoMatricula();
-		diretorGeral.setMatricula(matricula);
-		diretorGeral.setSenha(senha);
-		return diretorGeral;
-	}
-	
-	public Funcionario criaMedico(String nome, LocalDate dataDeNascimento){
-		Funcionario medico = new Medico(nome, dataDeNascimento);
-		String matricula = "2" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
-		medico.setMatricula(matricula);
-		String senha = String.valueOf(dataDeNascimento.getYear()) + complementoSenha(matricula);
-		medico.setSenha(senha);
-		return medico;
-	}
-	
-	public Funcionario criaTecnico(String nome, LocalDate dataDeNascimento){
-		Funcionario tecnico = new Tecnico(nome, dataDeNascimento);
-		String matricula = "3" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
-		tecnico.setMatricula(matricula);
-		String senha = String.valueOf(dataDeNascimento.getYear()) + complementoSenha(matricula);
-		tecnico.setSenha(senha);
-		return tecnico;
-	}
-	
-	
-	
 	
 }

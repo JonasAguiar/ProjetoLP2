@@ -1,15 +1,10 @@
 package pessoal;
 
-import java.time.LocalDate;
 
-import SOOS.Controller;
-
-public class Medico extends Funcionario{ 
+public class Medico implements Cargo{ 
 	
-
-
-	public Medico(String nome, LocalDate dataDeNascimento) {
-		super(nome, dataDeNascimento);
+	public Medico() {
+		super();
 	}
 
 	@Override

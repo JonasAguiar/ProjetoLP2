@@ -1,9 +1,6 @@
 package pessoal;
 
-public abstract class Cargo {
-	
-	public Cargo(){
-	}
+public interface Cargo {
 
 	@Override
 	public abstract String toString();

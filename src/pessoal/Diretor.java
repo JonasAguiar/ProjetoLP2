@@ -1,11 +1,10 @@
 package pessoal;
 
-import java.time.LocalDate;
 
-public class Diretor extends Funcionario{
+
+public class Diretor implements Cargo{
 	
-	public Diretor(String nome, LocalDate dataDeNascimento){
-		super(nome, dataDeNascimento);
+	public Diretor(){
 	}
 
 	@Override

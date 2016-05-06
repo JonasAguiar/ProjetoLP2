@@ -7,20 +7,37 @@ public class Funcionario {
 	private String nome;
 	private String matricula;
 	private String senha;
-	private String cargo;
+	private Cargo cargo;
 	private LocalDate dataDeNascimento;
 	
 	public Funcionario(String nome, LocalDate dataDeNascimento){
 		this.nome = nome;
 		this.dataDeNascimento = dataDeNascimento;
+		this.cargo = null;
 		}
-
 	
-/*	public Funcionario(){
+	public Funcionario(){
 		this.cargo = new Diretor();
 		this.senha = "c041ebf8";
-	}*/
-
+	}
+	
+	public void atribuiCargoMedico(){
+		this.cargo = new Medico();
+	}
+	
+	public void atribuiCargoTecnico(){
+		this.cargo = new Tecnico();
+	}
+	
+	public void atribuiCargoDiretor(){
+		this.cargo = new Diretor();
+	}
+	
+	public Cargo getCargo(){
+		return this.cargo;
+	}
+	
+	
 	public String getNome() {
 		return nome;
 	}
@@ -54,15 +71,6 @@ public class Funcionario {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
-
-	public String getCargo() {
-		return cargo;
-	}
-
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
 
 
 	

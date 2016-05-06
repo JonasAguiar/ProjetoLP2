@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,4 +43,16 @@ public class DepartamentoClinico {
 		}
 		return null;
 	}
+	
+	public void cadastraPaciente(String nome, double peso, LocalDate data, String tipoSanguineo, String sexo, String genero){
+		Paciente paciente = new Paciente(nome, peso, data, tipoSanguineo, sexo, genero);
+		Prontuario prontuario = new Prontuario(paciente);
+		pacientes.add(paciente);
+		prontuarios.add(prontuario);
+		ProntuarioComparator comparator = new ProntuarioComparator();
+		Collections.sort(prontuarios, comparator );
+	}
+	
+	
+	
 }

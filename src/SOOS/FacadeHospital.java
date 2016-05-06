@@ -10,24 +10,47 @@ public class FacadeHospital {
 		this.controller = new Controller();
 	}
 	
-	public Object iniciaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
-		return controller.iniciaSistema(chave, nome, dataDeNascimento);
+	public void iniciaSistema() throws Exception{
+		try {
+			controller.iniciaSistema();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 	public void liberaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
-		controller.liberaSistema(chave, nome, dataDeNascimento);
+		try {
+			controller.liberaSistema(chave, nome, dataDeNascimento);
+		} catch (Exception e) {
+			
+		}
 	}
 	
-	public boolean realizaLogin(String login, String senha){
-		return controller.realizaLogin(login, senha);
+	public void login(String login, String senha){
+		try {
+			controller.login(login, senha);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public String logout(){
-		return controller.logout();
+	public void logout(){
+		try {
+			controller.logout();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
-	public String fechaSistema(){
-		return controller.fechaSistema();
+	public void fechaSistema(){
+		try {
+			controller.fechaSistema();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 	
