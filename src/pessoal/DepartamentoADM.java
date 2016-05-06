@@ -31,8 +31,25 @@ public class DepartamentoADM {
 	
 	public String complementoSenha(String matricula){
 		return  String.valueOf(matricula.charAt(0) +  matricula.charAt(1) +  matricula.charAt(2) +  matricula.charAt(3));
-	}
+	}	
 
+	
+		public Funcionario cadastraFuncionario(String nome, String cargo, LocalDate dataDeNascimento){
+			Funcionario funcionario = diretorGeral.cadastraFuncionario(nome, cargo, dataDeNascimento);
+			if(funcionario.getCargo().equalsIgnoreCase("medico")){
+				String matricula = "2" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
+				funcionario.setMatricula(matricula);
+				String senha = String.valueOf(dataDeNascimento.getYear()) + complementoSenha(matricula);
+				funcionario.setSenha(senha);
+			}else if(funcionario.getCargo().equalsIgnoreCase("tecnico administrativo")){
+				String matricula = "3" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
+				funcionario.setMatricula(matricula);
+				String senha = String.valueOf(dataDeNascimento.getYear()) + complementoSenha(matricula);
+				funcionario.setSenha(senha);
+			}
+			return funcionario;
+	}
+	
 	public Funcionario criaDiretor(String nome, LocalDate dataDeNascimento){
 		String senha = "c041ebf8";
 		Funcionario diretorGeral = new Diretor(nome, dataDeNascimento);
