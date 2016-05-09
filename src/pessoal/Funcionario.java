@@ -8,9 +8,9 @@ public class Funcionario {
 	private String matricula;
 	private String senha;
 	private Cargo cargo;
-	private LocalDate dataDeNascimento;
+	private String dataDeNascimento;
 	
-	public Funcionario(String nome, LocalDate dataDeNascimento){
+	public Funcionario(String nome, String dataDeNascimento){
 		this.nome = nome;
 		this.dataDeNascimento = dataDeNascimento;
 		this.cargo = null;
@@ -63,11 +63,11 @@ public class Funcionario {
 	}
 
 
-	public LocalDate getDataDeNascimento() {
+	public String getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(LocalDate dataDeNascimento) {
+	public void setDataDeNascimento(String dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 

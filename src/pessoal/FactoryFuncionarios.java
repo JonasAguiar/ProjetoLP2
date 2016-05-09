@@ -9,7 +9,7 @@ public class FactoryFuncionarios {
 		
 	}
 	
-	public Funcionario criaFuncionario(String cargo, String nome, LocalDate dataDeNascimento){
+	public Funcionario criaFuncionario(String cargo, String nome, String dataDeNascimento){
 		
 		switch (cargo) {
 		case "diretor":
@@ -27,19 +27,19 @@ public class FactoryFuncionarios {
 		
 	}
 	
-	private Funcionario criaDiretor(String nome, LocalDate dataDeNascimento){
+	private Funcionario criaDiretor(String nome, String dataDeNascimento){
 		Funcionario diretor = new Funcionario(nome, dataDeNascimento);
 		diretor.atribuiCargoDiretor();
 		return diretor;
 	}
 	
-	private Funcionario criaMedico(String nome, LocalDate dataDeNascimento){
+	private Funcionario criaMedico(String nome, String dataDeNascimento){
 		Funcionario medico = new Funcionario(nome, dataDeNascimento);
 		medico.atribuiCargoMedico();
 		return medico;
 	}
 	
-	private Funcionario criaTecnico(String nome, LocalDate dataDeNascimento){
+	private Funcionario criaTecnico(String nome, String dataDeNascimento){
 		Funcionario tecnico = new Funcionario(nome, dataDeNascimento);
 		tecnico.atribuiCargoTecnico();
 		return tecnico;

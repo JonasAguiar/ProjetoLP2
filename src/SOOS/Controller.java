@@ -16,7 +16,7 @@ import pessoal.Funcionario;
 
 public class Controller {
 	
-	private int N_DO_METODO_INICIAL = 0;
+	private boolean sistemaLiberado;
 	private DepartamentoClinico dptClinico;
 	private DepartamentoADM dptADM;
 	private Farmacia farmacia;
@@ -25,6 +25,7 @@ public class Controller {
 	final String SENHA = "c041ebf8";
 	
 	public Controller(){
+		this.sistemaLiberado = false;
 		this.dptClinico = new DepartamentoClinico();
 		this.dptADM = new DepartamentoADM();
 		this.farmacia = new Farmacia();
@@ -34,58 +35,59 @@ public class Controller {
 	Funcionario diretor;
 	
 	public boolean verificaChave(String chave){
-		
 		if(chave.equals(SENHA)) {
 			return true;
 			} return false;
 		}
-	
-	public void iniciaSistema(){
-		
-	}
 	 
-	public void liberaSistema(String chave, String nome, LocalDate dataDeNascimento) throws Exception{
-		if(verificaChamadaLiberaSistema()){
-			if(verificaChave(chave)){
-				if(usuarioLogado != null && !(usuarioLogado.getCargo() instanceof Diretor)){
-					usuarioLogado = dptADM.cadastraFuncionario(nome, "diretor", dataDeNascimento);
-					
-				}else{
-					
-					
-				}
-			}else{
-				throw new Exception("Erro ao liberar o sistema. Chave invalida");
-				}
+	public String liberaSistema(String chave, String nome, String dataDeNascimento) throws Exception{
+		if(sistemaLiberado == true){
+			throw new Exception(" Sistema liberado anteriormente.");
 		}
+		else{
+			if(verificaChave(chave)){
+				sistemaLiberado = true;
+				 return dptADM.cadastraFuncionario(nome, "diretor", dataDeNascimento);
+				}else{
+					throw new Exception(" Chave invalida.");
+				} 
+			
+		}
+		
+
 	}
 	
-	public boolean verificaChamadaLiberaSistema() throws Exception{
+	/*public boolean verificaChamadaLiberaSistema() throws Exception{
 		if(N_DO_METODO_INICIAL == 1){
 			throw new Exception("Ja possui um diretor nesse sistema.");	
 		}else{
 			return true;
 		}
-	}
+	}*/
 	
-	public boolean login(String matricula, String senha) throws Exception{
+	public void login(String matricula, String senha) throws Exception{
 		if(funcionariosCadastrados.containsKey(matricula)){
+			
 			if(funcionariosCadastrados.get(matricula).getSenha().equals(senha)){
 				usuarioLogado = funcionariosCadastrados.get(matricula);
-				return true;
+				return usuarioLogado.getMatricula();
+				
 			}else{
-				throw new Exception("Nao foi possivel realizar login");
+				throw new Exception(" Senha incorreta.");
 			}
-		}return false;
+		}else{
+				throw new Exception(" Funcionario nao cadastrado.");
+			}
 		
-	}
-	public String logout() {
+	}	
+
+	public void logout() {
 		usuarioLogado = null;
-		return "logout";
+		
 	}
 		
-	public String fechaSistema(){
-		return "fechaSistema";
+	public void fechaSistema(){
+		
 	
 	}
 	

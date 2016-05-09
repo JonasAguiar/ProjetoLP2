@@ -15,10 +15,10 @@ public class DepartamentoADM {
 		this.factoryFuncionario = new FactoryFuncionarios();
 	}
 
-	public Funcionario cadastraFuncionario(String nome, String cargo, LocalDate dataDeNascimento){
+	public String cadastraFuncionario(String nome, String cargo, String dataDeNascimento){
 		Funcionario funcionario = factoryFuncionario.criaFuncionario(cargo, nome, dataDeNascimento);
 		atribuiLogin(funcionario);
-			return funcionario;
+			return funcionario.getMatricula();
 	}
 	
 	
@@ -35,24 +35,45 @@ public class DepartamentoADM {
 	}
 	
 	private void atribuiLoginDiretor(Funcionario funcionario){
-		String senha = "c041ebf8";
-		String matricula = "1" + String.valueOf(LocalDate.now().getYear()) 
-								+ complementoMatricula();
+		String matricula = "1" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
 		funcionario.setMatricula(matricula);
+		LocalDate dataDeNascimento = formataData(funcionario.getDataDeNascimento());
+		String senha = String.valueOf(dataDeNascimento.getYear()) + complementoSenha(matricula);
 		funcionario.setSenha(senha);
 	}
+	
+	
+	private LocalDate formataData(String data){
+		
+		String[] datas = data.split("/");
+		
+		int dia = Integer.parseInt(datas[0]);
+		int mes = Integer.parseInt(datas[1]);
+		int ano = Integer.parseInt(datas[2]);
+		
+		LocalDate dataFormatada = LocalDate.of(ano, mes, dia);
+		return dataFormatada;
+		
+	}
+	
+	
+	
 	
 	private void atribuiLoginMedico (Funcionario funcionario){
 		String matricula = "2" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
 		funcionario.setMatricula(matricula);
-		String senha = String.valueOf(funcionario.getDataDeNascimento().getYear()) + complementoSenha(matricula);
+		LocalDate dataDeNascimento = formataData(funcionario.getDataDeNascimento());
+		String senha = String.valueOf(dataDeNascimento.getYear()) + complementoSenha(matricula);
 		funcionario.setSenha(senha);
 	}
 	
 	private void atribuiLoginTecnico(Funcionario funcionario){
+		
 		String matricula = "3" + String.valueOf(LocalDate.now().getYear())  + complementoMatricula();
 		funcionario.setMatricula(matricula);
-		String senha = String.valueOf(funcionario.getDataDeNascimento().getYear()) + complementoSenha(matricula);
+		LocalDate dataDeNascimento = formataData(funcionario.getDataDeNascimento());
+				
+		String senha = String.valueOf(dataDeNascimento.getYear()) + complementoSenha(matricula);
 		funcionario.setSenha(senha);
 	}
 	
