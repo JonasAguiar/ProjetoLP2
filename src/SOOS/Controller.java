@@ -65,23 +65,56 @@ public class Controller {
 		}
 	}*/
 	
-	public void login(String matricula, String senha) throws Exception{
-		if(funcionariosCadastrados.containsKey(matricula)){
+	
+	public String cadastraFuncionario(String nome, String cargo, String dataDeNascimento) throws Exception{
+		if(nome.trim().equals("")){
+			throw new Exception(" Nome do funcionario nao pode ser vazio.");
+		}if(nome == null){
+			throw new Exception(" Nome do funcionario nao pode ser nulo.");
+		}if(cargo.equals("")){
+			throw new Exception(" Nome do cargo nao pode ser vazio.");
+		}if(cargo == null){
+			throw new Exception(" Nome do Cargo nao pode ser nulo.");
+		}if(dataDeNascimento.trim().equals("") || dataDeNascimento == null){
+			throw new Exception(" Data invalida.");
+		}if(usuarioLogado != null && cargo.equals("diretor")){
+			throw new Exception(" Nao eh possivel criar mais de um Diretor Geral.");
 			
+		}if(!(cargo.toLowerCase().equals("diretor")) || !(cargo.toLowerCase().equals("medico")) || !(cargo.toLowerCase().equals("tecnico administrativo"))){
+			throw new Exception(" Cargo invalido.");
+		}
+		
+		if(usuarioLogado != null && cargo.equals("diretor")){
+			throw new Exception(" Nao eh possivel criar mais de um Diretor Geral.");
+		}
+		
+		return dptADM.cadastraFuncionario(nome, cargo, dataDeNascimento);
+	}
+	
+	
+	public String login(String matricula, String senha) throws Exception{
+		if(funcionariosCadastrados.containsKey(matricula)){
+	
 			if(funcionariosCadastrados.get(matricula).getSenha().equals(senha)){
-				usuarioLogado = funcionariosCadastrados.get(matricula);
-				return usuarioLogado.getMatricula();
+				throw new Exception(" Senha incorreta.");
 				
 			}else{
-				throw new Exception(" Senha incorreta.");
+				usuarioLogado = funcionariosCadastrados.get(matricula);
+				return usuarioLogado.getMatricula();
 			}
+	
 		}else{
-				throw new Exception(" Funcionario nao cadastrado.");
-			}
-		
+			throw new Exception(" Funcionario nao cadastrado.");
+		}
 	}	
 
-	public void logout() {
+	
+	
+	
+	public void logout() throws Exception {
+		if(usuarioLogado == null){
+			throw new Exception("Usuario ja deslogado.");
+		}
 		usuarioLogado = null;
 		
 	}

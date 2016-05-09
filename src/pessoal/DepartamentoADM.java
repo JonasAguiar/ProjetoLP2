@@ -8,17 +8,25 @@ import java.util.Map;
 public class DepartamentoADM {
 	
 	private FactoryFuncionarios factoryFuncionario;
-	private Map<Integer, Funcionario> funcionarios;
+	private Map<String, Funcionario> funcionarios;
 
 	public DepartamentoADM(){
-		this.funcionarios = new HashMap<Integer, Funcionario>();
+		this.funcionarios = new HashMap<String, Funcionario>();
 		this.factoryFuncionario = new FactoryFuncionarios();
 	}
 
-	public String cadastraFuncionario(String nome, String cargo, String dataDeNascimento){
+	public String cadastraFuncionario(String nome, String cargo, String dataDeNascimento) throws Exception{
+		
+		if(funcionarios.get(nome).getDataDeNascimento().equals(dataDeNascimento)){
+			throw new Exception(" Funcionario ja existe.");
+		}*/
+		
 		Funcionario funcionario = factoryFuncionario.criaFuncionario(cargo, nome, dataDeNascimento);
 		atribuiLogin(funcionario);
+		funcionarios.put(funcionario.getMatricula(), funcionario);
 			return funcionario.getMatricula();
+		
+		
 	}
 	
 	

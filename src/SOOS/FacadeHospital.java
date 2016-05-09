@@ -22,13 +22,27 @@ public class FacadeHospital {
 		return null;
 	}
 	
-	public void login(String login, String senha) throws Exception{
+	public String login(String login, String senha) throws Exception{
 		try {
 			controller.login(login, senha);
 		} catch (Exception e) {
 			throw new Exception("Nao foi possivel realizar o login." + e.getMessage());
 		}
+		return null;
 	}
+
+	
+	public String cadastraFuncionario(String nome, String cargo, String dataDeNascimento) throws Exception{
+		
+		try {
+			controller.cadastraFuncionario(nome, cargo, dataDeNascimento);
+		} catch (Exception e) {
+			throw new Exception("Erro no cadastro de funcionario." + e.getMessage());
+		}
+		return null;
+	}
+	
+	
 	
 	public void logout(){
 		try {
@@ -37,6 +51,10 @@ public class FacadeHospital {
 			// TODO: handle exception
 		}
 	}
+	
+	
+	
+	
 	
 	public void fechaSistema(){
 		try {
