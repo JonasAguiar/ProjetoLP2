@@ -9,6 +9,8 @@ import java.util.Set;
 import Farmacia.CategoriaMedicamento;
 import Farmacia.Farmacia;
 import Farmacia.Medicamento;
+import bancoDeOrgao.BancoDeOrgaos;
+import bancoDeOrgao.Orgao;
 import clinico.DepartamentoClinico;
 import pessoal.DepartamentoADM;
 import pessoal.Diretor;
@@ -17,6 +19,7 @@ import pessoal.Funcionario;
 public class Controller {
 	
 	private boolean sistemaLiberado;
+	private BancoDeOrgaos bancoDeOrgaos;
 	private DepartamentoClinico dptClinico;
 	private DepartamentoADM dptADM;
 	private Farmacia farmacia;
@@ -26,6 +29,7 @@ public class Controller {
 	
 	public Controller(){
 		this.sistemaLiberado = false;
+		this.bancoDeOrgaos = bancoDeOrgaos;
 		this.dptClinico = new DepartamentoClinico();
 		this.dptADM = new DepartamentoADM();
 		this.farmacia = new Farmacia();
@@ -56,16 +60,7 @@ public class Controller {
 		
 
 	}
-	
-	/*public boolean verificaChamadaLiberaSistema() throws Exception{
-		if(N_DO_METODO_INICIAL == 1){
-			throw new Exception("Ja possui um diretor nesse sistema.");	
-		}else{
-			return true;
-		}
-	}*/
-	
-	
+		
 	public String cadastraFuncionario(String nome, String cargo, String dataDeNascimento) throws Exception{
 		if(nome.trim().equals("")){
 			throw new Exception(" Nome do funcionario nao pode ser vazio.");
@@ -149,4 +144,34 @@ public class Controller {
 	public List getEstoqueFarmacia(String ordenacao){
 		return farmacia.getEstoqueFarmacia(ordenacao);
 	}
+	
+	//forwading case 5 - BANCO DE ORGAOS
+	public void cadastraOrgao(String nome, String tipo) throws Exception{
+		bancoDeOrgaos.cadastraOrgao(nome, tipo);
+	}
+	
+	public boolean buscaOrgao(String nome, String tipo) throws Exception{
+		return bancoDeOrgaos.buscaOrgao(nome, tipo);
+	}
+	
+	public String buscaOrgPorNome(String nome) throws Exception{
+		return bancoDeOrgaos.buscaOrgPorNome(nome);
+	}
+	
+	public Orgao buscaOrgPorSangue(String tipo) throws Exception{
+		return bancoDeOrgaos.buscaOrgPorSangue(tipo);
+	}
+	
+	public void retiraOrgao(String nome, String tipo) throws Exception{
+		bancoDeOrgaos.retiraOrgao(nome, tipo);
+	}
+	
+	public int qtdOrgaos(String nome) throws Exception{
+		return bancoDeOrgaos.qtdOrgaos(nome);
+	}
+	
+	public int totalOrgaosDisponiveis(){
+		return bancoDeOrgaos.totalOrgaosDisponiveis();
+	}
+	
 }

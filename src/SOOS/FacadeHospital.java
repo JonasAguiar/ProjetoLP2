@@ -2,6 +2,8 @@ package SOOS;
 
 import java.time.LocalDate;
 
+import bancoDeOrgao.Orgao;
+
 public class FacadeHospital {
 	
 	private Controller controller;
@@ -42,8 +44,6 @@ public class FacadeHospital {
 		return null;
 	}
 	
-	
-	
 	public void logout(){
 		try {
 			controller.logout();
@@ -51,9 +51,6 @@ public class FacadeHospital {
 			// TODO: handle exception
 		}
 	}
-	
-	
-	
 	
 	
 	public void fechaSistema(){
@@ -65,5 +62,67 @@ public class FacadeHospital {
 		
 	}
 	
+	
+	public void cadastraOrgao(String nome, String tipo) throws Exception{
+		try {
+			controller.cadastraOrgao(nome, tipo);
+		} catch (Exception e) {
+			throw new Exception("O banco de orgaos apresentou um erro. " + e.getMessage());
+		}
+	}
+	
+	public boolean buscaOrgao(String nome, String tipo) throws Exception{
+		try {
+			controller.buscaOrgao(nome, tipo);
+		} catch (Exception e) {
+			throw new Exception("O banco de orgaos apresentou um erro. " + e.getMessage());
+		}
+		return false;
+	}
+	
+	public String buscaOrgPorNome(String nome) throws Exception{
+		try {
+			controller.buscaOrgPorNome(nome);
+		} catch (Exception e) {
+			throw new Exception("O banco de orgaos apresentou um erro. " + e.getMessage());
+		}
+		return nome;
+	}
+	
+	public Orgao buscaOrgPorSangue(String tipo) throws Exception{
+		try {
+			controller.buscaOrgPorSangue(tipo);
+		} catch (Exception e) {
+			throw new Exception("O banco de orgaos apresentou um erro. " + e.getMessage());
+		}
+		;
+		return null;
+	}
+	
+	public void retiraOrgao(String nome, String tipo) throws Exception{
+		try {
+			controller.retiraOrgao(nome, tipo);
+		} catch (Exception e) {
+			throw new Exception("O banco de orgaos apresentou um erro. " + e.getMessage());
+		}
+	}
+	
+	public int qtdOrgaos(String nome) throws Exception{
+		try {
+			controller.qtdOrgaos(nome);
+		} catch (Exception e) {
+			throw new Exception("O banco de orgaos apresentou um erro. " + e.getMessage());
+		}
+		return 0;
+	}
+	
+	public int totalOrgaosDisponiveis() throws Exception{
+		try {
+			controller.totalOrgaosDisponiveis();
+		} catch (Exception e) {
+			throw new Exception("O banco de orgaos apresentou um erro. " + e.getMessage());
+		}
+		return 0;
+	}
 	
 }

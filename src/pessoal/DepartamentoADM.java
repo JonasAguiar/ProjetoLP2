@@ -19,7 +19,7 @@ public class DepartamentoADM {
 		
 		if(funcionarios.get(nome).getDataDeNascimento().equals(dataDeNascimento)){
 			throw new Exception(" Funcionario ja existe.");
-		}*/
+		}
 		
 		Funcionario funcionario = factoryFuncionario.criaFuncionario(cargo, nome, dataDeNascimento);
 		atribuiLogin(funcionario);
