@@ -25,6 +25,7 @@ public class Paciente {
 		this.sexoBiologico = sexo;
 		this.genero = genero;
 		this.id = UUID.randomUUID();
+		this.totalDeGastos = 0;
 		
 	}
 	
@@ -107,7 +108,6 @@ public class Paciente {
 
 
 	public void setTotalDeGastos(int totalDeGastos) {
-		
 		this.totalDeGastos = getTotalDeGastos() + totalDeGastos;
 	}
 

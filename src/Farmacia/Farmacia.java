@@ -80,15 +80,28 @@ public class Farmacia {
 		return this.estoqueFarmacia;
 	}
 	
-	public boolean verificaMedicamento(String medicamentos) throws Exception{
+	public int verificaMedicamento(String medicamentos) throws Exception{
 		String listaDeMedimento[] = medicamentos.split(Pattern.quote(","));
 		for(String medicamento : listaDeMedimento){
+			int valorDoMedicamento = 0;
 			if(estoqueFarmacia.contains(medicamento)){
-				return true;
+				valorDoMedicamento += getMedicamento(medicamento).getPreco();
+				return valorDoMedicamento;
 			}else{
 				throw new Exception("Medicamento nao cadastrado.");
 			}
 		}
-		return false;
+		return 0;
+		
 	}
+	
+	public Medicamento getMedicamento(String nome){
+		for(Medicamento medicamento : estoqueFarmacia){
+			if(medicamento.getNome().equals(nome)){
+				return medicamento;
+			}
+		}
+		return null;
+	}
+	
 }

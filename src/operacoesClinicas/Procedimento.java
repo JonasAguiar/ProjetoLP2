@@ -6,7 +6,7 @@ public interface Procedimento {
 	
 	
 	
-	public void fazProcedimento(Paciente paciente);
+	public void fazProcedimento(Paciente paciente) throws Exception;
 	
 	
 	

@@ -59,83 +59,91 @@ public class DepartamentoClinico {
 		return null;
 	}
 	
-	public UUID cadastraPaciente(String nome, double peso, String data, String tipoSanguineo, String sexo, String genero){
+	public UUID cadastraPaciente(String nome, double peso, String data, String tipoSanguineo, String sexo, String genero) throws Exception{
 		Paciente paciente = new Paciente(nome, peso, data, tipoSanguineo, sexo, genero);
-		pacientes.add(paciente);
-		prontuarios.add(paciente.getProntuario());
+		for(Prontuario prontuario : prontuarios){
+			if(prontuario.getPaciente().equals(paciente)){
+				throw new Exception("Paciente ja cadastrado.");
+			}else{
+				Prontuario prontuarioPaciente = new Prontuario(paciente);
+				prontuarios.add(prontuarioPaciente);
+			}
+		}
 		ProntuarioComparator comparator = new ProntuarioComparator();
 		Collections.sort(prontuarios, comparator );
 		return paciente.getId();
 	}
 	
-	public void realizaProcedimento(){
+	public void realizaProcedimento(String procedimento, UUID id, int valorMedicamentos) throws Exception{
+		
+		switch (procedimento) {
+		case "Cirurgia bariatrica":
+			realizaCirurgiaBariatrica(id, valorMedicamentos);
+		case "Consulta clinica":
+			realizaConsulta(id, valorMedicamentos);
+		case "Redesignacao sexual":
+			realizaRedesignacao(id, valorMedicamentos);
+
+		default:
+			break;
+		}
+		
 		
 	}
 	
 	
-	public void realizaTransplante(String orgao, UUID id, String medicamentos) throws Exception{
-	
+	public void realizaTransplante(String orgao, UUID id, int valorMedicamentos) throws Exception{
+		
 		for(Prontuario prontuario : prontuarios){
 			if(prontuario.getIdPaciente().equals(id)){
 				Orgao orgaoDoado = bancoDeOrgaos.verificaOrgao(orgao);
-				factoryProcedimentos.criaTransplante(orgaoDoado);
-				prontuario.realizaProcedimento();
+				Procedimento procedimento = factoryProcedimentos.criaTransplante(orgaoDoado);
+				prontuario.realizaProcedimento(procedimento);
+				prontuario.atribuiValorMedicamento(valorMedicamentos);
+			}else {
+				throw new Exception("Paciente nao cadastrado.");
+				}
 			}
-			
-			Orgao orgaoDoado = bancoDeOrgaos.verificaOrgao(orgao);
-			
-			factoryProcedimentos.criaTransplante(orgaoDoado);
-			
-			Paciente paciente = getPaciente(id);
-			Prontuario prontuarioPaciente = paciente.getProntuario();
-			prontuarioPaciente.adicionaProcedimento(transplante);
-			paciente.setTotalDeGastos(transplante.getValor());
-		}else {
-			throw new Exception("Paciente nao cadastrado.");
 		}
 		
+	
+	
+	public void realizaConsulta(UUID id, int valorMedicamentos) throws Exception{
+		for(Prontuario prontuario : prontuarios){
+			if(prontuario.getIdPaciente().equals(id)){
+				Procedimento procedimento = factoryProcedimentos.criaProcedimento("Consulta clinica");
+				prontuario.realizaProcedimento(procedimento);
+				prontuario.atribuiValorMedicamento(valorMedicamentos);
+			}else {
+				throw new Exception("Paciente nao cadastrado.");
+				}
+			}
 	}
 	
-	public void realizaConsulta(String id, String medicamentos) throws Exception{
-		if(pacientes.contains(id)){
-			Procedimento consulta = new ConsultaClinica();
-			Paciente paciente = getPaciente(id);
-			Prontuario prontuarioPaciente = paciente.getProntuario();
-			prontuarioPaciente.adicionaProcedimento(consulta);
-			paciente.setTotalDeGastos(consulta.getValor());
-		}else {
-			throw new Exception("Paciente nao cadastrado.");
-		}
-	}
-	
-	public void realizaCirurgiaBariatrica(String id, String medicamentos) throws Exception{
-		if(pacientes.contains(id)){
-			Procedimento cirurgiaBariatrica = new CirurgiaBariatrica();
-			Paciente paciente = getPaciente(id);
-			double novoPeso = subtracaoDoPeso(paciente);
-			paciente.setPeso(novoPeso);
-			Prontuario prontuarioPaciente = paciente.getProntuario();
-			prontuarioPaciente.adicionaProcedimento(cirurgiaBariatrica);
-			paciente.setTotalDeGastos(cirurgiaBariatrica.getValor());
-		}else {
-			throw new Exception("Paciente nao cadastrado.");
-		}
+	public void realizaCirurgiaBariatrica(UUID id, int valorMedicamentos) throws Exception{
+		for(Prontuario prontuario : prontuarios){
+			if(prontuario.getIdPaciente().equals(id)){
+				Procedimento procedimento = factoryProcedimentos.criaProcedimento("Cirurgia bariatrica");
+				prontuario.realizaProcedimento(procedimento);
+				prontuario.atribuiValorMedicamento(valorMedicamentos);
+			}else {
+				throw new Exception("Paciente nao cadastrado.");
+				}
+			}
 		
 		
 	}
 	
-	public void realizaRedesignacao(String id, String medicamentos) throws Exception{
-		if(pacientes.contains(id)){
-			Procedimento redesignacao = new RedesignacaoSexual();
-			Paciente paciente = getPaciente(id);
-			String generoDeMudanca = verificaGenero(paciente);
-			paciente.setGenero(generoDeMudanca);
-			Prontuario prontuarioPaciente = paciente.getProntuario();
-			prontuarioPaciente.adicionaProcedimento(redesignacao);
-			paciente.setTotalDeGastos(redesignacao.getValor());
-		}else {
-			throw new Exception("Paciente nao cadastrado.");
-		}
+	public void realizaRedesignacao(UUID id, int valorMedicamentos) throws Exception{
+		for(Prontuario prontuario : prontuarios){
+			if(prontuario.getIdPaciente().equals(id)){
+				Procedimento procedimento = factoryProcedimentos.criaProcedimento("Redesignacao sexual");
+				prontuario.realizaProcedimento(procedimento);
+				prontuario.atribuiValorMedicamento(valorMedicamentos);
+			}else {
+				throw new Exception("Paciente nao cadastrado.");
+				}
+			}
 		
 	}
 	
@@ -157,12 +165,11 @@ public class DepartamentoClinico {
 			return "Masculino";
 		}
 	}
+
+	
+
 	
 	
-	public double subtracaoDoPeso(Paciente paciente){
-		double pesoSubtraido = (paciente.getPeso()*15.0) / 100.0;
-		return pesoSubtraido;
+	
 		
-	}
-	
 }

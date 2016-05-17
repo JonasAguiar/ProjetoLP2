@@ -8,7 +8,7 @@ public class ConsultaClinica implements Procedimento {
 
 	@Override
 	public void fazProcedimento(Paciente paciente) {
-		// TODO Auto-generated method stub
+		paciente.adicionaGasto(valor);
 		
 	}
 

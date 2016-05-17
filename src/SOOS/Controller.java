@@ -273,13 +273,20 @@ public class Controller {
 	
 	public void realizaProcedimento(String procedimento, String orgao, UUID id, String medicamentos) throws Exception{
 		validaPermissaoMedico(usuarioLogado);
-		farmacia.verificaMedicamento(medicamentos);
-		dptClinico.verificaOrgao(orgao);
 		verificaProcedimento(procedimento);
-		dptClinico.realizaTransplante(orgao, id, medicamentos);
+		int valorRemedios = farmacia.verificaMedicamento(medicamentos);
+		dptClinico.realizaTransplante(orgao, id, valorRemedios);
 	}
 	
 	// falta o outro realiza procedimento
+
+	public void realizaProcedimento(String procedimento, UUID id, String medicamentos) throws Exception{
+		validaPermissaoMedico(usuarioLogado);
+		verificaProcedimento(procedimento);
+		int valorMedicamentos = farmacia.verificaMedicamento(medicamentos);
+		dptClinico.realizaProcedimento(procedimento, id, valorMedicamentos);
+	}
+	
 	
 	
 	

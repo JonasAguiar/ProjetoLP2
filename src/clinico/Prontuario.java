@@ -18,9 +18,15 @@ public class Prontuario{
 	}
 
 	
-	public void realizaProcedimento(Procedimento procedimento){
+	public void realizaProcedimento(Procedimento procedimento) throws Exception{
 		procedimento.fazProcedimento(paciente);
 	}
+	
+	
+	public void atribuiValorMedicamento(int valorDosRemedios){
+		paciente.setTotalDeGastos(valorDosRemedios);
+	}
+	
 	
 	
 	public String getNomePaciente(){
