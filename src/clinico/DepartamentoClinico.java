@@ -116,8 +116,8 @@ public class DepartamentoClinico {
 		if(pacientes.contains(id)){
 			Procedimento redesignacao = new RedesignacaoSexual();
 			Paciente paciente = getPaciente(id);
-			String generoDeMudança = verificaGenero(paciente);
-			paciente.setGenero(generoDeMudança);
+			String generoDeMudanca = verificaGenero(paciente);
+			paciente.setGenero(generoDeMudanca);
 			Prontuario prontuarioPaciente = paciente.getProntuario();
 			prontuarioPaciente.adicionaProcedimento(redesignacao);
 			paciente.setTotalDeGastos(redesignacao.getValor());
@@ -135,7 +135,7 @@ public class DepartamentoClinico {
 		}return null;
 	}
 	
-	// encontrar uma soluçãaaao
+	// encontrar uma soluï¿½ï¿½aaao
 	public boolean verificaOrgao(String orgao) throws Exception{
 		return bancoDeOrgaos.verificaOrgao(orgao);
 		
