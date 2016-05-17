@@ -10,8 +10,10 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 import bancoDeOrgao.BancoDeOrgaos;
+import bancoDeOrgao.Orgao;
 import operacoesClinicas.CirurgiaBariatrica;
 import operacoesClinicas.ConsultaClinica;
+import operacoesClinicas.FactoryDeProcedimentos;
 import operacoesClinicas.Procedimento;
 import operacoesClinicas.RedesignacaoSexual;
 import operacoesClinicas.TransplanteDeOrgaos;
@@ -20,13 +22,13 @@ public class DepartamentoClinico {
 	
 	private BancoDeOrgaos bancoDeOrgaos;
 	private List<Prontuario> prontuarios;
-	private List<Paciente> pacientes;
+	private FactoryDeProcedimentos factoryProcedimentos;
 	
 	
 	public DepartamentoClinico(){
-		this.pacientes = new ArrayList<Paciente>();
 		this.prontuarios = new ArrayList<Prontuario>();
 		this.bancoDeOrgaos = new BancoDeOrgaos();
+		this.factoryProcedimentos = new FactoryDeProcedimentos();
 		
 	}
 
@@ -71,9 +73,19 @@ public class DepartamentoClinico {
 	}
 	
 	
-	public void realizaTransplante(String orgao, String id, String medicamentos) throws Exception{
-		if(pacientes.contains(id)){
-			Procedimento transplante = new TransplanteDeOrgaos();
+	public void realizaTransplante(String orgao, UUID id, String medicamentos) throws Exception{
+	
+		for(Prontuario prontuario : prontuarios){
+			if(prontuario.getIdPaciente().equals(id)){
+				Orgao orgaoDoado = bancoDeOrgaos.verificaOrgao(orgao);
+				factoryProcedimentos.criaTransplante(orgaoDoado);
+				prontuario.realizaProcedimento();
+			}
+			
+			Orgao orgaoDoado = bancoDeOrgaos.verificaOrgao(orgao);
+			
+			factoryProcedimentos.criaTransplante(orgaoDoado);
+			
 			Paciente paciente = getPaciente(id);
 			Prontuario prontuarioPaciente = paciente.getProntuario();
 			prontuarioPaciente.adicionaProcedimento(transplante);
@@ -128,18 +140,15 @@ public class DepartamentoClinico {
 	}
 	
 	public Paciente getPaciente(String id){
-		for(Paciente paciente : pacientes){
-			if(paciente.getId().equals(id)){
-				return paciente;
+		for(Prontuario prontuario : prontuarios){
+			if(prontuario.getIdPaciente().equals(id)){
+				return prontuario.getPaciente();
 			}
 		}return null;
 	}
 	
-	// encontrar uma solu��aaao
-	public boolean verificaOrgao(String orgao) throws Exception{
-		return bancoDeOrgaos.verificaOrgao(orgao);
-		
-	}
+	
+
 	
 	public String verificaGenero(Paciente paciente){
 		if(paciente.getGenero().equals("Masculino")){

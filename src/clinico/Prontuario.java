@@ -10,37 +10,49 @@ import operacoesClinicas.Procedimento;
 public class Prontuario{
 	
 	private List<Procedimento> procedimentos;
+	private Paciente paciente;
 	
-	public Prontuario(){
+	public Prontuario(Paciente paciente){
 		this.procedimentos = new ArrayList();
+		
 	}
 
-	public String getNomePaciente(){
-		return null;
+	
+	public void realizaProcedimento(Procedimento procedimento){
+		procedimento.fazProcedimento(paciente);
 	}
 	
-	public int getPeso(){
-		return 0;
+	
+	public String getNomePaciente(){
+		return paciente.getNome();
+	}
+	
+	public double getPeso(){
+		return paciente.getPeso();
 	}
 	
 	public String getDataDeNascimento(){
-		return null;
+		return paciente.getDataNascimento();
 	}
 	
 	public String getTipoSanguineo(){
-		return null;
+		return paciente.getTipoSanguineo();
 	}
 	
 	public String getSexoBiologico(){
-		return null;
+		return paciente.getSexoBiologico();
 	}
 	
 	public String getGenero(){
-		return null;
+		return paciente.getGenero();
 	}
 	
 	public UUID getIdPaciente(){
-		return null;
+		return paciente.getId();
+	}
+	
+	public Paciente getPaciente(){
+		return this.paciente;
 	}
 	
 	public void adicionaProcedimento(Procedimento procedimento){

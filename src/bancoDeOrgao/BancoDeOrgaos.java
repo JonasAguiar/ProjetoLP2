@@ -101,16 +101,14 @@ public class BancoDeOrgaos {
 		return bancoDeOrgaos.size();
 	}
 	
-	public boolean verificaOrgao(String nomeDoOrgao, String tipoDoPaciente) throws Exception{
+	public Orgao verificaOrgao(String nomeDoOrgao) throws Exception{
 		if(bancoDeOrgaos.contains(nomeDoOrgao)){
-			String tipoOrgaoNoBanco = getOrgao(nomeDoOrgao).getTipo();
-			if(tipoOrgaoNoBanco.equals(tipoDoPaciente)){
-				return true;
-			}
-			return true;
+			Orgao orgaoDoado = getOrgao(nomeDoOrgao);
+			return orgaoDoado;
 		}else{
 			throw new Exception("Banco nao possui o orgao especificado.");
 		}
+		
 	}
 	
 	public Orgao getOrgao(String nomeDoOrgao){

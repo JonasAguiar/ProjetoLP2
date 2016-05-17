@@ -12,7 +12,6 @@ public class Paciente {
 	private String sexoBiologico;
 	private String genero;
 	private UUID id;
-	private Prontuario prontuario;
 	private int totalDeGastos;
 	
 	
@@ -26,8 +25,7 @@ public class Paciente {
 		this.sexoBiologico = sexo;
 		this.genero = genero;
 		this.id = UUID.randomUUID();
-		this.prontuario = new Prontuario();
-		this.setTotalDeGastos(0);
+		
 	}
 	
 
@@ -48,7 +46,7 @@ public class Paciente {
 
 
 	public void setPeso(double peso) {
-		this.peso = peso;
+		this.peso = getPeso() - peso;
 	}
 
 
@@ -86,10 +84,6 @@ public class Paciente {
 		return genero;
 	}
 
-	public Prontuario getProntuario(){
-		return this.prontuario;
-	}
-
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
@@ -115,5 +109,14 @@ public class Paciente {
 	public void setTotalDeGastos(int totalDeGastos) {
 		
 		this.totalDeGastos = getTotalDeGastos() + totalDeGastos;
+	}
+
+	public void adicionaPontos(int pontos){
+		
+	}
+
+	public void adicionaGasto(int valor) {
+		setTotalDeGastos(valor);
+		
 	}
 }

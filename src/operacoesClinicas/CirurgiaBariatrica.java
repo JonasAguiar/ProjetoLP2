@@ -1,25 +1,29 @@
 package operacoesClinicas;
 
-public class CirurgiaBariatrica extends Procedimento{
+import clinico.Paciente;
+
+public class CirurgiaBariatrica implements Procedimento{
 
 	private final int valor = 7600;
+	
+
+	
 
 	@Override
-	public void procedimento() {
-		// TODO Auto-generated method stub
+	public void fazProcedimento(Paciente paciente) {
+		double novoPeso = (15.0 * paciente.getPeso()) / 100.0;
+		paciente.setPeso(novoPeso);
+		paciente.adicionaGasto(valor);
+		paciente.adicionaPontos(pontos);
+		
 		
 	}
-
-	public int getValor() {
-		return valor;
-	}
-
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Cirurgia bariatrica";
 	}
-
-	
-	
 	
 }

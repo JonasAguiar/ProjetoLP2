@@ -1,17 +1,14 @@
 package operacoesClinicas;
 
-public abstract class Procedimento {
+import clinico.Paciente;
 
-	private int valor;
+public interface Procedimento {
 	
-	public Procedimento(){
-	}
 	
-	public abstract void procedimento();
 	
-	public abstract int getValor();
+	public void fazProcedimento(Paciente paciente);
+	
+	
 	
 
-	public abstract String toString();
-	
 }

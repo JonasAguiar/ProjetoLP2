@@ -271,7 +271,7 @@ public class Controller {
 	//FORWADING CASE 6
 	
 	
-	public void realizaProcedimento(String procedimento, String orgao, String id, String medicamentos) throws Exception{
+	public void realizaProcedimento(String procedimento, String orgao, UUID id, String medicamentos) throws Exception{
 		validaPermissaoMedico(usuarioLogado);
 		farmacia.verificaMedicamento(medicamentos);
 		dptClinico.verificaOrgao(orgao);
