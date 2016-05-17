@@ -19,6 +19,7 @@ public class Prontuario{
 
 	
 	public void realizaProcedimento(Procedimento procedimento) throws Exception{
+		adicionaProcedimento(procedimento);
 		procedimento.fazProcedimento(paciente);
 	}
 	
