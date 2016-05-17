@@ -101,6 +101,27 @@ public class BancoDeOrgaos {
 		return bancoDeOrgaos.size();
 	}
 	
+	public boolean verificaOrgao(String nomeDoOrgao, String tipoDoPaciente) throws Exception{
+		if(bancoDeOrgaos.contains(nomeDoOrgao)){
+			String tipoOrgaoNoBanco = getOrgao(nomeDoOrgao).getTipo();
+			if(tipoOrgaoNoBanco.equals(tipoDoPaciente)){
+				return true;
+			}
+			return true;
+		}else{
+			throw new Exception("Banco nao possui o orgao especificado.");
+		}
+	}
+	
+	public Orgao getOrgao(String nomeDoOrgao){
+		for(Orgao orgao : bancoDeOrgaos){
+			if(orgao.getNome().equals(nomeDoOrgao)){
+				return orgao;
+			}
+		}
+		return null;
+	}
+	
 	private void adicionaTipo(){
 		tiposDeSangue.add("A+");
 		tiposDeSangue.add("A-");

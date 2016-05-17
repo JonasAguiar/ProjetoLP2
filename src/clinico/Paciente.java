@@ -7,14 +7,18 @@ public class Paciente {
 	
 	private String nome;
 	private double peso;
-	private LocalDate dataNascimento;
+	private String dataNascimento;
 	private String tipoSanguineo;
 	private String sexoBiologico;
 	private String genero;
 	private UUID id;
+	private Prontuario prontuario;
+	private int totalDeGastos;
 	
 	
-	public Paciente(String nome, double peso, LocalDate data, String tipoSanguineo, String sexo, String genero){
+	
+	
+	public Paciente(String nome, double peso, String data, String tipoSanguineo, String sexo, String genero){
 		this.nome = nome;
 		this.peso = peso;
 		this.dataNascimento = data;
@@ -22,6 +26,8 @@ public class Paciente {
 		this.sexoBiologico = sexo;
 		this.genero = genero;
 		this.id = UUID.randomUUID();
+		this.prontuario = new Prontuario();
+		this.setTotalDeGastos(0);
 	}
 	
 
@@ -46,12 +52,12 @@ public class Paciente {
 	}
 
 
-	public LocalDate getDataNascimento() {
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
 
 
-	public void setDataNascimento(LocalDate dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -80,6 +86,9 @@ public class Paciente {
 		return genero;
 	}
 
+	public Prontuario getProntuario(){
+		return this.prontuario;
+	}
 
 	public void setGenero(String genero) {
 		this.genero = genero;
@@ -93,5 +102,18 @@ public class Paciente {
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+
+
+	public int getTotalDeGastos() {
+		return totalDeGastos;
+	}
+
+
+
+	public void setTotalDeGastos(int totalDeGastos) {
+		
+		this.totalDeGastos = getTotalDeGastos() + totalDeGastos;
 	}
 }

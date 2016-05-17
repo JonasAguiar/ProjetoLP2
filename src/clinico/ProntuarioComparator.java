@@ -6,7 +6,7 @@ public class ProntuarioComparator implements Comparator<Prontuario> {
 	
 	@Override
 	public int compare(Prontuario prontuario, Prontuario outroProntuario) {
-		return prontuario.getPaciente().getNome().compareTo(outroProntuario.getPaciente().getNome());
+		return prontuario.getNomePaciente().compareTo(outroProntuario.getNomePaciente());
 	}
 
 }

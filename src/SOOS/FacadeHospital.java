@@ -42,7 +42,21 @@ public class FacadeHospital {
 			throw new Exception("Erro no cadastro de funcionario." + e.getMessage());
 		}
 		return null;
+
 	}
+
+	
+	public String cadastraFuncionario1(String nome, String cargo, String dataDeNascimento) throws Exception{
+		
+		try {
+			controller.cadastraFuncionario(nome, cargo, dataDeNascimento);
+		} catch (Exception e) {
+			throw new Exception("Erro no cadastro de funcionario." + e.getMessage());
+		}
+		return null;
+	}
+	
+	
 	
 	public void logout(){
 		try {
@@ -51,7 +65,6 @@ public class FacadeHospital {
 			// TODO: handle exception
 		}
 	}
-	
 	
 	public void fechaSistema(){
 		try {

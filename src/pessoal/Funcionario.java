@@ -16,10 +16,6 @@ public class Funcionario {
 		this.cargo = null;
 		}
 	
-	public Funcionario(){
-		this.cargo = new Diretor();
-		this.senha = "c041ebf8";
-	}
 	
 	public void atribuiCargoMedico(){
 		this.cargo = new Medico();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class Farmacia {
 	
@@ -21,8 +22,12 @@ public class Farmacia {
 		estoqueFarmacia.add(medicamento);
 	}
 	
-	public void removeMedicamento(Medicamento medicamento){
-		estoqueFarmacia.remove(medicamento);
+	public void removeMedicamento(Medicamento medicamento) throws Exception{
+		if(estoqueFarmacia.contains(medicamento)){
+			estoqueFarmacia.remove(medicamento);
+		}else{
+			throw new Exception("Remedio nao cadastrado.");
+		}
 	}
 	
 	public void atualizaMedicamento(String nome, String atributo, double novoValor){
@@ -71,4 +76,19 @@ public class Farmacia {
 		}return null;
 	}
 	
+	public List<Medicamento> retornaEstoque(){
+		return this.estoqueFarmacia;
+	}
+	
+	public boolean verificaMedicamento(String medicamentos) throws Exception{
+		String listaDeMedimento[] = medicamentos.split(Pattern.quote(","));
+		for(String medicamento : listaDeMedimento){
+			if(estoqueFarmacia.contains(medicamento)){
+				return true;
+			}else{
+				throw new Exception("Medicamento nao cadastrado.");
+			}
+		}
+		return false;
+	}
 }
