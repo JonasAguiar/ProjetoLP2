@@ -5,6 +5,7 @@ import clinico.Paciente;
 public class RedesignacaoSexual implements Procedimento {
 	
 	private final int valor = 9300;
+	private final int pontos = 130;
 
 	@Override
 	public String toString() {

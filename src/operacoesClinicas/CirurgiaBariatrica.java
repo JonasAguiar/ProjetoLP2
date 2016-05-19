@@ -5,6 +5,7 @@ import clinico.Paciente;
 public class CirurgiaBariatrica implements Procedimento{
 
 	private final int valor = 7600;
+	private final int pontos = 100;
 	
 
 	

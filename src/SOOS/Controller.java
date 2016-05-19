@@ -268,7 +268,7 @@ public class Controller {
 	}
 	
 	
-	//FORWADING CASE 6
+	//FORWADING CASE 6 e 7
 	
 	
 	public void realizaProcedimento(String procedimento, String orgao, UUID id, String medicamentos) throws Exception{
@@ -278,8 +278,7 @@ public class Controller {
 		dptClinico.realizaTransplante(orgao, id, valorRemedios);
 	}
 	
-	// falta o outro realiza procedimento
-
+	// procedimentos normais com medicamentos
 	public void realizaProcedimento(String procedimento, UUID id, String medicamentos) throws Exception{
 		validaPermissaoMedico(usuarioLogado);
 		verificaProcedimento(procedimento);
@@ -287,9 +286,15 @@ public class Controller {
 		dptClinico.realizaProcedimento(procedimento, id, valorMedicamentos);
 	}
 	
-	
-	
-	
+	// procedimento de consulta
+	public void realizaProcedimento(String procedimento, UUID id) throws Exception{
+		validaPermissaoMedico(usuarioLogado);
+		verificaProcedimento(procedimento);
+		dptClinico.realizaConsulta(id);
+		
+		
+	}
+		
 	public boolean verificaProcedimento(String procedimento) throws Exception{
 		if(procedimento.equals("Consulta clinica") || procedimento.equals("Cirurgia ariatrica") 
 				|| procedimento.equals("Redesignacao sexual") || procedimento.equals("Transplante de orgaos")){

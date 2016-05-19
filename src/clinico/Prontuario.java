@@ -25,7 +25,8 @@ public class Prontuario{
 	
 	
 	public void atribuiValorMedicamento(int valorDosRemedios){
-		paciente.setTotalDeGastos(valorDosRemedios);
+		int valorDosRemediosDesconto = paciente.calculaDescontoRemedio(valorDosRemedios);
+		paciente.setTotalDeGastos(valorDosRemediosDesconto);
 	}
 	
 	

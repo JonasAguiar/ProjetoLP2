@@ -32,32 +32,6 @@ public class DepartamentoClinico {
 		
 	}
 
-	public String getInfoPaciente(UUID id, String atributo) {
-		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		for (Paciente paciente : pacientes) {
-			if (id.equals(paciente.getId())) {
-				switch (atributo) {
-				case "Nome":
-					return paciente.getNome();
-				case "Data":
-					return String.valueOf(paciente.getDataNascimento().format(formatador));
-				case "Sexo":
-					return paciente.getSexoBiologico();
-				case "Genero":
-					return paciente.getGenero();
-				case "TipoSanguineo":
-					return paciente.getTipoSanguineo();
-				case "Peso":
-					return String.valueOf(paciente.getPeso());
-				case "Idade":
-					LocalDate hoje = LocalDate.now();
-					Period periodo = Period.between(paciente.getDataNascimento(), hoje);
-					return String.valueOf(periodo.getYears());
-				}
-			}
-		}
-		return null;
-	}
 	
 	public UUID cadastraPaciente(String nome, double peso, String data, String tipoSanguineo, String sexo, String genero) throws Exception{
 		Paciente paciente = new Paciente(nome, peso, data, tipoSanguineo, sexo, genero);
@@ -92,6 +66,10 @@ public class DepartamentoClinico {
 	}
 	
 	
+	public void realizaProcedimento()
+	
+	
+	
 	public void realizaTransplante(String orgao, UUID id, int valorMedicamentos) throws Exception{
 		
 		for(Prontuario prontuario : prontuarios){
@@ -120,6 +98,20 @@ public class DepartamentoClinico {
 			}
 	}
 	
+	
+	public void realizaConsulta(UUID id){
+		for(Prontuario prontuario : prontuarios){
+			if(prontuario.getIdPaciente().equals(id)){
+				Procedimento procedimento = factoryProcedimentos.criaProcedimento("Consulta clinica");
+				prontuario.realizaProcedimento(procedimento);
+			}else {
+				throw new Exception("Paciente nao cadastrado.");
+				}
+			}
+	}
+	
+	
+	
 	public void realizaCirurgiaBariatrica(UUID id, int valorMedicamentos) throws Exception{
 		for(Prontuario prontuario : prontuarios){
 			if(prontuario.getIdPaciente().equals(id)){
@@ -133,6 +125,31 @@ public class DepartamentoClinico {
 		
 		
 	}
+	
+	public String getInfoPaciente(UUID id, String atributo) {
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		for (Prontuario prontuario : prontuarios) {
+			if (id.equals(prontuario.getIdPaciente())) {
+				switch (atributo) {
+				case "Nome":
+					return prontuario.getNomePaciente();
+				case "Data":
+					return String.valueOf(prontuario.getDataDeNascimento().format(formatador));
+				case "Sexo":
+					return prontuario.getSexoBiologico();
+				case "Genero":
+					return prontuario.getGenero();
+				case "TipoSanguineo":
+					return prontuario.getTipoSanguineo();
+				case "Peso":
+					return String.valueOf(prontuario.getPeso());
+				case "Idade":
+					LocalDate hoje = LocalDate.now();
+					Period periodo = Period.between(prontuario.getDataDeNascimento(), hoje);
+					return String.valueOf(periodo.getYears());
+				}
+			}
+		}
 	
 	public void realizaRedesignacao(UUID id, int valorMedicamentos) throws Exception{
 		for(Prontuario prontuario : prontuarios){

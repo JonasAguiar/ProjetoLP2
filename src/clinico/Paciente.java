@@ -3,6 +3,11 @@ package clinico;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import logicaCartao.CartaoFidelidade;
+import logicaCartao.Master;
+import logicaCartao.Padrao;
+import logicaCartao.Vip;
+
 public class Paciente {
 	
 	private String nome;
@@ -13,6 +18,8 @@ public class Paciente {
 	private String genero;
 	private UUID id;
 	private int totalDeGastos;
+	private CartaoFidelidade cartaoFidelidade;
+	private int pontosBonus;
 	
 	
 	
@@ -26,6 +33,7 @@ public class Paciente {
 		this.genero = genero;
 		this.id = UUID.randomUUID();
 		this.totalDeGastos = 0;
+		this.cartaoFidelidade = new Padrao();
 		
 	}
 	
@@ -107,16 +115,36 @@ public class Paciente {
 
 
 
-	public void setTotalDeGastos(int totalDeGastos) {
-		this.totalDeGastos = getTotalDeGastos() + totalDeGastos;
+	public void setTotalDeGastos(int valor) {
+		this.totalDeGastos = totalDeGastos + valor;
 	}
 
 	public void adicionaPontos(int pontos){
+		int pontosCartao = cartaoFidelidade.calculaPontos(pontos);
+		this.pontosBonus += pontosCartao;
+		verificaTipoCartao();
 		
+	}
+	
+	
+	public void verificaTipoCartao(){
+		if(pontosBonus >= 150 && pontosBonus <= 350){
+			cartaoFidelidade = new Master();
+		}else if(pontosBonus > 350){
+			cartaoFidelidade = new Vip();
+		}
 	}
 
 	public void adicionaGasto(int valor) {
-		setTotalDeGastos(valor);
+		int valorCartao = cartaoFidelidade.calculaDesconto(valor);
+		setTotalDeGastos(valorCartao);
 		
 	}
+	
+	public int calculaDescontoRemedio(int valor){
+		return cartaoFidelidade.calculaDesconto(valor);
+	}
+	
+	
+	
 }
