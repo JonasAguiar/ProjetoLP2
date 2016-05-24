@@ -2,13 +2,11 @@ package SOOS;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 import Farmacia.CategoriaMedicamento;
 import Farmacia.Farmacia;
@@ -236,16 +234,30 @@ public class Controller implements Serializable {
 		dptADM.modificaNome(usuarioLogado.getMatricula(), novoNome);
 	}
 
+	/** Metodo que realiza a modificação da senha do usuario logado.
+	 * @param senhaAtual
+	 * @param novaSenha
+	 * @throws Exception
+	 */
 	public void modificaSenha(String senhaAtual, String novaSenha) throws Exception {
 		dptADM.alteraSenha(usuarioLogado.getMatricula(), novaSenha);
 	}
 
+	/** Metodo que realiza a modificação da data de nascimento do usuario logado.
+	 * @param novaData
+	 * @throws Exception
+	 */
 	public void modificaDataDeNascimento(String novaData) throws Exception {
 		dptADM.alteraDataDeNascimento(usuarioLogado.getMatricula(), novaData);
 	}
 
 	// VALIDACOES DE PERMISSAO
 
+	/** Metodo que realiza a verificação e validação do cargo do usuario logado, no caso tecnico.
+	 * @param funcionario
+	 * @return boolean
+	 * @throws Exception
+	 */
 	public boolean validaPermissaoTecnico(Funcionario funcionario) throws Exception {
 		if (funcionario.getCargo() instanceof Tecnico || funcionario.getCargo() instanceof Diretor) {
 			return true;
@@ -254,6 +266,11 @@ public class Controller implements Serializable {
 		}
 	}
 
+	/** Metodo que realiza a verificação e validação do cargo do usuario logado, no caso Medico.
+	 * @param funcionario
+	 * @return boolean
+	 * @throws Exception
+	 */
 	public boolean validaPermissaoMedico(Funcionario funcionario) throws Exception {
 		if (funcionario.getCargo() instanceof Tecnico || funcionario.getCargo() instanceof Diretor) {
 			return true;
@@ -262,6 +279,11 @@ public class Controller implements Serializable {
 		}
 	}
 
+	/** Metodo que realiza a verificação e validação do cargo do usuario logado, no caso Diretor.
+	 * @param funcionario
+	 * @return boolean
+	 * @throws Exception
+	 */
 	public boolean validaPermissaoDiretor(Funcionario funcionario) throws Exception {
 		if (funcionario.getCargo() instanceof Diretor) {
 			return true;
@@ -272,11 +294,27 @@ public class Controller implements Serializable {
 
 	// FORWADING CASE 3
 
+	/** Metodo que realiza o forwading de getInfo para a classe dpt clinico.
+	 * @param id
+	 * @param atributo
+	 * @return String
+	 * @throws Exception
+	 */
 	public String getInfoPaciente(UUID id, String atributo) throws Exception {
 		validaPermissaoTecnico(usuarioLogado);
 		return dptClinico.getInfoPaciente(id, atributo);
 	}
 
+	/** Metodo que realiza o forwading para o cadastra paciente do dp Clinico
+	 * @param nome
+	 * @param peso
+	 * @param data
+	 * @param tipoSanguineo
+	 * @param sexo
+	 * @param genero
+	 * @return UUID
+	 * @throws Exception
+	 */
 	public UUID cadastraPaciente(String nome, double peso, String data, String tipoSanguineo, String sexo,
 			String genero) throws Exception {
 		validaPermissaoTecnico(usuarioLogado);
@@ -284,68 +322,151 @@ public class Controller implements Serializable {
 	}
 
 	// FORWARDING DO CASE 4
+	/** Metodo que realiza o forwading para criaMedicamento da Classe Farmacia.
+	 * @param nome
+	 * @param tipo
+	 * @param preco
+	 * @param quantidade
+	 * @param categorias
+	 * @throws Exception
+	 */
 	public void criaMedicamento(String nome, String tipo, double preco, int quantidade,
 			Set<CategoriaMedicamento> categorias) throws Exception {
 		validaPermissaoTecnico(usuarioLogado);
 		farmacia.criaMedicamento(nome, tipo, preco, quantidade, categorias);
 	}
 
+	/** Metodo que realiza o forwading para removeMedicamento de farmacia.
+	 * @param medicamento
+	 * @throws Exception
+	 */
 	public void removeMedicamento(Medicamento medicamento) throws Exception {
 		validaPermissaoTecnico(usuarioLogado);
 		farmacia.removeMedicamento(medicamento);
 	}
 
+	/** Metodo que realiza o forwading para atualizaMedicamento de farmacia
+	 * @param nome
+	 * @param atributo
+	 * @param novoValor
+	 * @throws Exception
+	 */
 	public void atualizaMedicamento(String nome, String atributo, double novoValor) throws Exception {
 		validaPermissaoTecnico(usuarioLogado);
 		farmacia.atualizaMedicamento(nome, atributo, novoValor);
 	}
 
+	/** Metodo que realiza o forwading para consultaMedNome em farmacia
+	 * @param nome
+	 * @return String
+	 * @throws Exception
+	 */
 	public String consultaMedNome(String nome) throws Exception {
 		validaPermissaoTecnico(usuarioLogado);
 		return farmacia.consultaMedNome(nome);
 	}
 
+	/** Metodo que realiza o forwading para ConsultaMedCategoria em farmacia
+	 * @param categoria
+	 * @return List
+	 * @throws Exception
+	 */
 	public List consultaMedCategoria(String categoria) throws Exception {
 		validaPermissaoTecnico(usuarioLogado);
 		return farmacia.consultaMedCategoria(categoria);
 	}
 
+	/** Metodo que realiza o forwading para getEstoque em farmacia
+	 * @param ordenacao
+	 * @return List
+	 * @throws Exception
+	 */
 	public List getEstoqueFarmacia(String ordenacao) throws Exception {
 		validaPermissaoTecnico(usuarioLogado);
 		return farmacia.getEstoqueFarmacia(ordenacao);
 	}
 
 	// forwading case 5 - BANCO DE ORGAOS
+	/** Metodo que realiza o forwading de cadastro em Banco de orgaos
+	 * @param nome
+	 * @param tipo
+	 * @throws Exception
+	 */
 	public void cadastraOrgao(String nome, String tipo) throws Exception {
+		validaPermissaoMedico(usuarioLogado);
 		bancoDeOrgaos.cadastraOrgao(nome, tipo);
 	}
 
+	/** Metodo que realiza o forwading de busca em banco de orgaos.
+	 * @param nome
+	 * @param tipo
+	 * @return boolean
+	 * @throws Exception
+	 */
 	public boolean buscaOrgao(String nome, String tipo) throws Exception {
+		validaPermissaoMedico(usuarioLogado);
 		return bancoDeOrgaos.buscaOrgao(nome, tipo);
 	}
 
+	/** Metodo que realiza forwading de buscas em banco de orgaos.
+	 * @param nome
+	 * @return String
+	 * @throws Exception
+	 */
 	public String buscaOrgPorNome(String nome) throws Exception {
+		validaPermissaoMedico(usuarioLogado);
 		return bancoDeOrgaos.buscaOrgPorNome(nome);
 	}
 
+	/** Metodo que realiza o forwading de busca orgao para Banco de orgao.
+	 * @param tipo
+	 * @return Orgao
+	 * @throws Exception
+	 */
 	public Orgao buscaOrgPorSangue(String tipo) throws Exception {
+		validaPermissaoMedico(usuarioLogado);
 		return bancoDeOrgaos.buscaOrgPorSangue(tipo);
 	}
 
+	/** Metodo que realiza o forwading de retira orgao para o banco de orgao.
+	 * @param nome
+	 * @param tipo
+	 * @throws Exception
+	 */
 	public void retiraOrgao(String nome, String tipo) throws Exception {
+		validaPermissaoMedico(usuarioLogado);
 		bancoDeOrgaos.retiraOrgao(nome, tipo);
 	}
 
+	/** Metodo que realiza o forwading de qntOrgao em banco de orgao.
+	 * @param nome
+	 * @return int
+	 * @throws Exception
+	 */
 	public int qtdOrgaos(String nome) throws Exception {
+		validaPermissaoMedico(usuarioLogado);
 		return bancoDeOrgaos.qtdOrgaos(nome);
 	}
 
-	public int totalOrgaosDisponiveis() {
+	/** Metodo que realiza o forwading de total de orgaos para banco de orgaos.
+	 * @return int 
+	 * @throws Exception 
+	 */
+	public int totalOrgaosDisponiveis() throws Exception {
+		validaPermissaoMedico(usuarioLogado);
 		return bancoDeOrgaos.totalOrgaosDisponiveis();
 	}
 
 	// FORWADING CASE 6 e 7
 
+	
+	/** Metodo que realiza o forwading para realiza em Dp Clinico.
+	 * @param procedimento
+	 * @param orgao
+	 * @param id
+	 * @param medicamentos
+	 * @throws Exception
+	 */
 	public void realizaProcedimento(String procedimento, String orgao, UUID id, String medicamentos) throws Exception {
 		validaPermissaoMedico(usuarioLogado);
 		verificaProcedimento(procedimento);
@@ -354,6 +475,12 @@ public class Controller implements Serializable {
 	}
 
 	// procedimentos normais com medicamentos
+	/** Metodo que realiza o forwading para realiza em Dp Clinico, a partir de sobrecarga
+	 * @param procedimento
+	 * @param id
+	 * @param medicamentos
+	 * @throws Exception
+	 */
 	public void realizaProcedimento(String procedimento, UUID id, String medicamentos) throws Exception {
 		validaPermissaoMedico(usuarioLogado);
 		verificaProcedimento(procedimento);
@@ -362,6 +489,11 @@ public class Controller implements Serializable {
 	}
 
 	// procedimento de consulta
+	/** Metodo que realiza o forwading para realiza em Dp Clinico, a partir de sobrecarga 
+	 * @param procedimento
+	 * @param id
+	 * @throws Exception
+	 */
 	public void realizaProcedimento(String procedimento, UUID id) throws Exception {
 		validaPermissaoMedico(usuarioLogado);
 		verificaProcedimento(procedimento);
@@ -370,6 +502,11 @@ public class Controller implements Serializable {
 	}
 
 	// verifica se o procedimento é um dos quatro possiveis.
+	/** Metodo que verifica se o procedimento é valido, e está na lista de procedimentos.
+	 * @param procedimento
+	 * @return boolean
+	 * @throws Exception
+	 */
 	public boolean verificaProcedimento(String procedimento) throws Exception {
 		if (procedimento.equals("Consulta clinica") || procedimento.equals("Cirurgia ariatrica")
 				|| procedimento.equals("Redesignacao sexual") || procedimento.equals("Transplante de orgaos")) {
@@ -380,6 +517,13 @@ public class Controller implements Serializable {
 
 	}
 
+	// case 8
+	
+	/** Metodo que realiza o forwading para a classe de gerenciamento de arquivos.
+	 * @param id
+	 * @throws IOException
+	 * @throws Exception
+	 */
 	public void exportaFichaPaciente(String id) throws IOException, Exception {
 		gerenciadorDeArquivos.exportaFichaPaciente(dptClinico.verificaPaciente(id));
 

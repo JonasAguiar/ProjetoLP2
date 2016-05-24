@@ -23,6 +23,10 @@ public class GerenciadorDeArquivos {
 	}
 	
 	
+	/** Metodo que realiza o procedimento de exportar a ficha do paciente para um arquivo e salvar o mesmo.
+	 * @param prontuario
+	 * @throws IOException
+	 */
 	public void exportaFichaPaciente(Prontuario prontuario) throws IOException{
 		LocalDate dataDeHoje = LocalDate.now();
 		SimpleDateFormat formatData = new SimpleDateFormat("yyyy_MM_dd");
@@ -38,11 +42,12 @@ public class GerenciadorDeArquivos {
 	
 	
 	public void salvaSistema(){
-		diretorioSistema.
 	}
 	
 	
-	
+	public void CarregaSistema(){
+		
+	}
 	
 	
 	

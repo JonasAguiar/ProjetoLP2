@@ -7,7 +7,6 @@ import java.util.UUID;
 import Farmacia.CategoriaMedicamento;
 import Farmacia.Medicamento;
 import bancoDeOrgao.Orgao;
-import pessoal.Funcionario;
 
 public class FacadeHospital implements Serializable {
 
@@ -285,6 +284,25 @@ public class FacadeHospital implements Serializable {
 	}
 	
 	public void verificaProcedimento(String procedimento) throws Exception{
-		controller.verificaProcedimento(procedimento);
+		try {
+			controller.verificaProcedimento(procedimento);
+		} catch (Exception e) {
+			throw new Exception("Erro na realizacao de procedimentos. "+ e.getMessage());
+		}
 	}
+	
+	public void exportaFichaPaciente(String id) throws Exception{
+		try {
+			controller.exportaFichaPaciente(id);
+		} catch (Exception e) {
+			throw new Exception("Erro nos arquivos. " + e.getMessage());
+		}
+	}
+	
+	
+	
 }
+
+
+
+
