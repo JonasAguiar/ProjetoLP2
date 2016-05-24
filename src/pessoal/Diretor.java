@@ -1,8 +1,8 @@
 package pessoal;
 
+import java.io.Serializable;
 
-
-public class Diretor implements Cargo{
+public class Diretor implements Cargo, Serializable{
 	
 	public Diretor(){
 	}

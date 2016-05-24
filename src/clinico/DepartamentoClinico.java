@@ -1,5 +1,6 @@
 package clinico;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +19,7 @@ import operacoesClinicas.Procedimento;
 import operacoesClinicas.RedesignacaoSexual;
 import operacoesClinicas.TransplanteDeOrgaos;
 
-public class DepartamentoClinico {
+public class DepartamentoClinico implements Serializable {
 	
 	private BancoDeOrgaos bancoDeOrgaos;
 	private List<Prontuario> prontuarios;
@@ -33,6 +34,16 @@ public class DepartamentoClinico {
 	}
 
 	
+	/** Metodo que cadastra paciente na clinica.
+	 * @param nome
+	 * @param peso
+	 * @param data
+	 * @param tipoSanguineo
+	 * @param sexo
+	 * @param genero
+	 * @return ID
+	 * @throws Exception
+	 */
 	public UUID cadastraPaciente(String nome, double peso, String data, String tipoSanguineo, String sexo, String genero) throws Exception{
 		Paciente paciente = new Paciente(nome, peso, data, tipoSanguineo, sexo, genero);
 		for(Prontuario prontuario : prontuarios){
@@ -48,6 +59,12 @@ public class DepartamentoClinico {
 		return paciente.getId();
 	}
 	
+	/** Metodo que realiza procedimento clinico no paciente.
+	 * @param procedimento
+	 * @param id
+	 * @param valorMedicamentos
+	 * @throws Exception
+	 */
 	public void realizaProcedimento(String procedimento, UUID id, int valorMedicamentos) throws Exception{
 		
 		switch (procedimento) {
@@ -66,10 +83,30 @@ public class DepartamentoClinico {
 	}
 	
 	
-	public void realizaProcedimento()
+	/** Metodo que verifica se existe um paciente com aquele nome, e retorna seu prontuario.
+	 * @param paciente
+	 * @return Prontuario
+	 * @throws Exception
+	 */
+	public Prontuario verificaPaciente(String paciente) throws Exception{
+		for (Prontuario prontuario : prontuarios){
+			if(prontuario.getNomePaciente().equals(paciente)){
+				return prontuario;
+			}else{
+				throw new Exception("Paciente nao cadastrado.");
+			}
+		}
+		return null;
+	}
 	
 	
 	
+	/** Metodo de realizar transplante
+	 * @param orgao
+	 * @param id
+	 * @param valorMedicamentos
+	 * @throws Exception
+	 */
 	public void realizaTransplante(String orgao, UUID id, int valorMedicamentos) throws Exception{
 		
 		for(Prontuario prontuario : prontuarios){
@@ -99,7 +136,11 @@ public class DepartamentoClinico {
 	}
 	
 	
-	public void realizaConsulta(UUID id){
+	/** Metodo que realiza consulta clinica ao paciente passado.
+	 * @param id
+	 * @throws Exception
+	 */
+	public void realizaConsulta(UUID id) throws Exception{
 		for(Prontuario prontuario : prontuarios){
 			if(prontuario.getIdPaciente().equals(id)){
 				Procedimento procedimento = factoryProcedimentos.criaProcedimento("Consulta clinica");
@@ -112,6 +153,11 @@ public class DepartamentoClinico {
 	
 	
 	
+	/** Metodo que realiza cirurgia bariatrica.
+	 * @param id
+	 * @param valorMedicamentos
+	 * @throws Exception
+	 */
 	public void realizaCirurgiaBariatrica(UUID id, int valorMedicamentos) throws Exception{
 		for(Prontuario prontuario : prontuarios){
 			if(prontuario.getIdPaciente().equals(id)){
@@ -126,6 +172,11 @@ public class DepartamentoClinico {
 		
 	}
 	
+	/** Metodo que realiza consulta as informacoes do paciente
+	 * @param id
+	 * @param atributo
+	 * @return String
+	 */
 	public String getInfoPaciente(UUID id, String atributo) {
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		for (Prontuario prontuario : prontuarios) {
@@ -148,9 +199,15 @@ public class DepartamentoClinico {
 					Period periodo = Period.between(prontuario.getDataDeNascimento(), hoje);
 					return String.valueOf(periodo.getYears());
 				}
+				}
 			}
 		}
 	
+	/** Metodo que realiza mudanca de genero no paciente.
+	 * @param id
+	 * @param valorMedicamentos
+	 * @throws Exception
+	 */
 	public void realizaRedesignacao(UUID id, int valorMedicamentos) throws Exception{
 		for(Prontuario prontuario : prontuarios){
 			if(prontuario.getIdPaciente().equals(id)){
@@ -164,6 +221,10 @@ public class DepartamentoClinico {
 		
 	}
 	
+	/** Metodo que retorna um paciente a partir de um id.
+	 * @param id
+	 * @return Paciente
+	 */
 	public Paciente getPaciente(String id){
 		for(Prontuario prontuario : prontuarios){
 			if(prontuario.getIdPaciente().equals(id)){
@@ -175,6 +236,10 @@ public class DepartamentoClinico {
 	
 
 	
+	/** Metodo que verifica o genero do paciente e retorna o genero de troca.
+	 * @param paciente
+	 * @return String
+	 */
 	public String verificaGenero(Paciente paciente){
 		if(paciente.getGenero().equals("Masculino")){
 			return "Feminino";

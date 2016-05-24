@@ -1,8 +1,9 @@
 package pessoal;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Funcionario {
+public class Funcionario implements Serializable{
 	
 	private String nome;
 	private String matricula;
@@ -17,14 +18,23 @@ public class Funcionario {
 		}
 	
 	
+	/** Metodo que realiza a atribuiçao de um cargo ao funcionario, no caso Medico.
+	 * 
+	 */
 	public void atribuiCargoMedico(){
 		this.cargo = new Medico();
 	}
 	
+	/** Metodo que realiza a atribuiçao de um cargo ao funcionario, no caso Tecnico.
+	 * 
+	 */
 	public void atribuiCargoTecnico(){
 		this.cargo = new Tecnico();
 	}
 	
+	/** Metodo que realiza a atribuiçao de um cargo ao funcionario, no caso Diretor.
+	 * 
+	 */
 	public void atribuiCargoDiretor(){
 		this.cargo = new Diretor();
 	}
@@ -68,7 +78,10 @@ public class Funcionario {
 	}
 
 
-
+	@Override
+	public String toString() {
+		return this.nome;
+	}
 	
 	
 	

@@ -1,15 +1,24 @@
 package operacoesClinicas;
 
-import clinico.Paciente;
+import java.io.Serializable;
 
-public class RedesignacaoSexual implements Procedimento {
+import clinico.Paciente;
+import pessoal.Funcionario;
+
+public class RedesignacaoSexual implements Procedimento, Serializable{
 	
+	private Funcionario medico;
 	private final int valor = 9300;
 	private final int pontos = 130;
+	private String data;
+	private Funcionario medicoDoProcedimento;
 
 	@Override
 	public String toString() {
-		return "Redesignacao Sexual";
+		String EOL = System.getProperty("line.separator");
+		String linha1 = "--> Redesignacao sexual" + EOL;
+		String linha2 = "....... Data: " + data + "Medico: "  + medicoDoProcedimento + EOL;
+		return linha1 + linha2;
 	}
 
 	@Override
@@ -26,4 +35,7 @@ public class RedesignacaoSexual implements Procedimento {
 		
 	}
 
+	
+	
+	
 }

@@ -1,7 +1,8 @@
 package logicaCartao;
 
+import java.io.Serializable;
 
-public class Padrao implements CartaoFidelidade{
+public class Padrao implements CartaoFidelidade, Serializable{
 
 	@Override
 	public int calculaPontos(int pontos) {

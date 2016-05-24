@@ -1,6 +1,8 @@
 package logicaCartao;
 
-public class Master implements CartaoFidelidade{
+import java.io.Serializable;
+
+public class Master implements CartaoFidelidade, Serializable{
 	
 	private final int desconto = 15;
 	private final int credito = 5;

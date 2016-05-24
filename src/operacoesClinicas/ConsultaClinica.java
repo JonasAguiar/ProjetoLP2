@@ -1,11 +1,16 @@
 package operacoesClinicas;
 
-import clinico.Paciente;
+import java.io.Serializable;
 
-public class ConsultaClinica implements Procedimento {
+import clinico.Paciente;
+import pessoal.Funcionario;
+
+public class ConsultaClinica implements Procedimento, Serializable {
 
 	private final int valor = 350;
 	private final int pontos = 50;
+	private Funcionario medicoDoProcedimento;
+	private String data;
 	
 	@Override
 	public void fazProcedimento(Paciente paciente) {
@@ -16,7 +21,11 @@ public class ConsultaClinica implements Procedimento {
 
 	@Override
 	public String toString() {
-		return "Consulta Clinica";
+		String EOL = System.getProperty("line.separator");
+		String linha1 = "--> Consulta clinica:" + EOL;
+		String linha2 = "....... Data: " + data + "Medico: "  + medicoDoProcedimento + EOL;
+
+		return linha1 + linha2;
 	}
 
 	

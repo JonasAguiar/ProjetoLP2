@@ -1,7 +1,8 @@
 package pessoal;
 
+import java.io.Serializable;
 
-public class Tecnico implements Cargo {
+public class Tecnico implements Cargo, Serializable{
 	
 	public Tecnico() {
 	}

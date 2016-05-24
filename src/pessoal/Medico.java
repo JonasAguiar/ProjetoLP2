@@ -1,7 +1,8 @@
 package pessoal;
 
+import java.io.Serializable;
 
-public class Medico implements Cargo{ 
+public class Medico implements Cargo, Serializable{ 
 	
 	public Medico() {
 		super();

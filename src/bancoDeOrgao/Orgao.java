@@ -1,6 +1,8 @@
 package bancoDeOrgao;
 
-public class Orgao {
+import java.io.Serializable;
+
+public class Orgao implements Serializable {
 	
 	private String nome;
 	private String tipo;

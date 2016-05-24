@@ -1,9 +1,10 @@
 package Farmacia;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Medicamento implements Comparable<Medicamento> {
+public abstract class Medicamento implements Comparable<Medicamento>, Serializable{
 	
 	private String nome;
 	private double preco;

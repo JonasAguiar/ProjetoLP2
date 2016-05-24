@@ -1,5 +1,6 @@
 package clinico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.UUID;
 
 import operacoesClinicas.Procedimento;
 
-public class Prontuario{
+public class Prontuario implements Serializable{
 	
 	private List<Procedimento> procedimentos;
 	private Paciente paciente;
@@ -18,12 +19,20 @@ public class Prontuario{
 	}
 
 	
+	/** Metodo que realiza o procedimento no paciente de acordo com o procedimento.
+	 * @param procedimento
+	 * @throws Exception
+	 */
 	public void realizaProcedimento(Procedimento procedimento) throws Exception{
 		adicionaProcedimento(procedimento);
 		procedimento.fazProcedimento(paciente);
+		
 	}
 	
 	
+	/** Metodo que atribui o valor do medicamento ao paciente.
+	 * @param valorDosRemedios
+	 */
 	public void atribuiValorMedicamento(int valorDosRemedios){
 		int valorDosRemediosDesconto = paciente.calculaDescontoRemedio(valorDosRemedios);
 		paciente.setTotalDeGastos(valorDosRemediosDesconto);
@@ -63,8 +72,23 @@ public class Prontuario{
 		return this.paciente;
 	}
 	
+	/** Metodo que adiciona um procedimento a lista de procedimentos do prontuario.
+	 * @param procedimento
+	 */
 	public void adicionaProcedimento(Procedimento procedimento){
 		procedimentos.add(procedimento);
+	}
+	
+	@Override
+	public String toString() {
+		String EOL = System.getProperty("line.separator");
+		String stringPaciente = paciente.toString();
+		String stringPadrao = "Resumo Procedimento: " + procedimentos.size() + " procedimento(s)" + EOL;
+		String stringProcedimentos = "";
+		for(Procedimento procedimento : procedimentos){
+			stringProcedimentos += procedimento.toString() + EOL;
+		}
+		return stringPaciente + stringPadrao + stringProcedimentos;
 	}
 	
 }	

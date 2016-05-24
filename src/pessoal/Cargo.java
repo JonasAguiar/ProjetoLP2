@@ -1,6 +1,6 @@
 package pessoal;
 
-public interface Cargo {
+public interface Cargo{
 
 	@Override
 	public abstract String toString();

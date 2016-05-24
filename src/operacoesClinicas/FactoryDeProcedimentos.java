@@ -1,12 +1,18 @@
 package operacoesClinicas;
 
+import java.io.Serializable;
+
 import bancoDeOrgao.Orgao;
 
-public class FactoryDeProcedimentos {
+public class FactoryDeProcedimentos implements Serializable{
 	
 	
 	
 	
+	/** Metodo que realiza a criaçao de Procedimento.
+	 * @param procedimento
+	 * @return Procedimento
+	 */
 	public Procedimento criaProcedimento(String procedimento){
 		
 		switch (procedimento) {

@@ -1,8 +1,8 @@
 package logicaCartao;
 
+import java.io.Serializable;
 
-
-public class Vip implements CartaoFidelidade {
+public class Vip implements CartaoFidelidade, Serializable {
 
 	private final int desconto = 30;
 	private final int credito = 10;
